@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/plane-a-picnic.csproj"
+                "${workspaceFolder}/plane-a-picnic/plane-a-picnic.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
