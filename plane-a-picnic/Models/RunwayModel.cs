@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace plane_a_picnic.Models {
-    public class RunwayModel {
+namespace plane_a_picnic.Models
+{
+    public class RunwayModel
+    {
         [Key]
         public int RunwayId { get; set; }
 
