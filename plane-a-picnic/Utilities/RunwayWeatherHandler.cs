@@ -23,64 +23,44 @@ namespace plane_a_picnic.Utilities
             return (angle + 180) % 360;
         }
 
-        private RunwayModel ClosestRunway(double x)
+        private double CalcAngleProximity(double angle1, double angle2)
         {
-            if (x < this.Runways.First().LeHeadingDegT)
+            double distance1 = Math.Abs(angle1 - angle2);
+            double distance2;
+            if (angle1 > angle2)
             {
-                return this.Runways.First();
-            }
-
-            if (x > this.Runways.Last().LeHeadingDegT)
-            {
-                return this.Runways.Last();
-            }
-
-            int lo = 0;
-            int hi = this.Runways.Count() - 1;
-
-            while (lo <= hi)
-            {
-                int mid = (hi + lo) / 2;
-
-                if (x < this.Runways[mid].LeHeadingDegT)
-                {
-                    hi = mid - 1;
-                }
-                else if (x > this.Runways[mid].LeHeadingDegT)
-                {
-                    lo = mid + 1;
-                }
-                else
-                {
-                    return this.Runways[mid];
-                }
-            }
-
-            // Handle case where lo == hi + 1
-            if ((this.Runways[lo].LeHeadingDegT - x) < (x - this.Runways[hi].LeHeadingDegT))
-            {
-                return this.Runways[lo];
+                distance2 = 360 - angle1 + angle2;
             }
             else
             {
-                return this.Runways[hi];
+                distance2 = 360 - angle2 + angle1;
             }
-        }
-
-        private double CalcAngleProximity(double angle1, double angle2)
-        {
-            return 0; // filler
+            return Math.Min(distance1, distance2);
         }
 
         public RunwayModel CalcLandingRunway(double windAngle)
         {
+            double runwayCount = this.Runways.Count();
             double opposingAngle = this.CalcOppositeAngle(windAngle);
-            if (this.Runways.Count() == 0)
+            if (runwayCount == 0)
             {
                 return null;
             }
-            // Apply binary search since list is ordered
-            return ClosestRunway(opposingAngle);
+            // Map the proximity function to each runway to the opposing angle
+            List<double> runwayProximities = this.Runways.Select(r => 
+                this.CalcAngleProximity((double)r.LeHeadingDegT, opposingAngle)).ToList();
+
+            // Do a linear search on each runway and choose the one with min proximity to opposing angle
+            int min = 0;
+            for (int i = 1; i < runwayCount; i++)
+            {
+                if (runwayProximities[min] > runwayProximities[i])
+                {
+                    min = i;
+                }
+            }
+
+            return this.Runways[min];
         }
     }
 }
