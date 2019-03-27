@@ -32,5 +32,7 @@ namespace plane_a_picnic.Models
         public string WikipediaLink { get; set; }
 
         public List<string> Keywords { get; set; }
+
+        public List<AirportModel> Airports { get; set; }
     }
 }
