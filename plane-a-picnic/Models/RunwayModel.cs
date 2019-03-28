@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace plane_a_picnic.Models
 {
@@ -8,7 +9,8 @@ namespace plane_a_picnic.Models
         [Key]
         public int RunwayId { get; set; }
 
-        public int AirportId { get; set; }
+        [Required]
+        [ForeignKey("AirportId")]
         public AirportModel Airport { get; set; }
 
         [Required]

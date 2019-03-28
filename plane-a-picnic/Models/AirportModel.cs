@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace plane_a_picnic.Models
 {
@@ -33,15 +34,10 @@ namespace plane_a_picnic.Models
         [Required]
         public string IsoCountry { get; set; }
 
-        public int CountryId { get; set; }
-
-        public CountryModel Country { get; set; }
-
         [Required]
         public string IsoRegion { get; set; }
-
-        public int RegionId { get; set; }
-
+        [Required]
+        [ForeignKey("RegionId")]
         public RegionModel Region { get; set; }
 
         [Required]
@@ -60,8 +56,14 @@ namespace plane_a_picnic.Models
 
         public string WikipediaLink { get; set; }
 
-        public List<string> Keywords { get; set; }
+        public List<AirportTagModel> Tags { get; set; }
 
         public List<RunwayModel> Runways { get; set; }
+
+        public AirportModel()
+        {
+            Tags = new List<AirportTagModel>();
+            Runways = new List<RunwayModel>();
+        }
     }
 }

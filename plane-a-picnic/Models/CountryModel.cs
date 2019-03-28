@@ -21,8 +21,14 @@ namespace plane_a_picnic.Models
         [Required]
         public string WikipediaLink { get; set; }
 
-        public List<string> Keywords { get; set; }
+        public List<CountryTagModel> Tags { get; set; }
 
-        public List<AirportModel> Airports { get; set; }
+        public List<RegionModel> Regions { get; set; }
+
+        public CountryModel()
+        {
+            Tags = new List<CountryTagModel>();
+            Regions = new List<RegionModel>();
+        }
     }
 }
