@@ -24,6 +24,11 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+countries_out.csv
+regions_out.csv
+airports_out.csv
+runways_out.csv
+
 appsettings.json
 
 # Visual Studio 2015 cache/options directory
