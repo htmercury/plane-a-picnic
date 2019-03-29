@@ -27,39 +27,6 @@ namespace plane_a_picnic.Models
                 .HasMany(a => a.Runways)
                 .WithOne(r => r.Airport);
 
-            modelBuilder.Entity<CountryTagModel>()
-                .HasKey(ct => new { ct.CountryId, ct.TagId });
-            modelBuilder.Entity<CountryTagModel>()
-                .HasOne(ct => ct.Country)
-                .WithMany(c => c.Tags)
-                .HasForeignKey(ct => ct.CountryId);
-            modelBuilder.Entity<CountryTagModel>()
-                .HasOne(ct => ct.Tag)
-                .WithMany(t => t.Countries)
-                .HasForeignKey(ct => ct.TagId);
-
-            modelBuilder.Entity<RegionTagModel>()
-                .HasKey(rt => new { rt.RegionId, rt.TagId });
-            modelBuilder.Entity<RegionTagModel>()
-                .HasOne(rt => rt.Region)
-                .WithMany(r => r.Tags)
-                .HasForeignKey(rt => rt.RegionId);
-            modelBuilder.Entity<RegionTagModel>()
-                .HasOne(rt => rt.Tag)
-                .WithMany(t => t.Regions)
-                .HasForeignKey(rt => rt.TagId);
-
-            modelBuilder.Entity<AirportTagModel>()
-                .HasKey(at => new { at.AirportId, at.TagId });
-            modelBuilder.Entity<AirportTagModel>()
-                .HasOne(at => at.Airport)
-                .WithMany(a => a.Tags)
-                .HasForeignKey(at => at.AirportId);
-            modelBuilder.Entity<AirportTagModel>()
-                .HasOne(at => at.Tag)
-                .WithMany(t => t.Airports)
-                .HasForeignKey(at => at.TagId);
-
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -21,13 +21,13 @@ namespace plane_a_picnic.Models
         [Required]
         public string WikipediaLink { get; set; }
 
-        public List<CountryTagModel> Tags { get; set; }
+        public string Keywords { get; set; }
 
         public List<RegionModel> Regions { get; set; }
 
         public CountryModel()
         {
-            Tags = new List<CountryTagModel>();
+            Keywords = "";
             Regions = new List<RegionModel>();
         }
     }

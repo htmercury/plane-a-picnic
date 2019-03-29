@@ -56,13 +56,13 @@ namespace plane_a_picnic.Models
 
         public string WikipediaLink { get; set; }
 
-        public List<AirportTagModel> Tags { get; set; }
+        public string Keywords { get; set; }
 
         public List<RunwayModel> Runways { get; set; }
 
         public AirportModel()
         {
-            Tags = new List<AirportTagModel>();
+            Keywords = "";
             Runways = new List<RunwayModel>();
         }
     }

@@ -45,6 +45,8 @@ namespace planeapicnic.Migrations
                     b.Property<string>("IsoRegion")
                         .IsRequired();
 
+                    b.Property<string>("Keywords");
+
                     b.Property<double>("LatitudeDeg");
 
                     b.Property<string>("LocalCode");
@@ -74,19 +76,6 @@ namespace planeapicnic.Migrations
                     b.ToTable("Airports");
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.AirportTagModel", b =>
-                {
-                    b.Property<int>("AirportId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("AirportId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("AirportTagModel");
-                });
-
             modelBuilder.Entity("plane_a_picnic.Models.CountryModel", b =>
                 {
                     b.Property<int>("CountryId")
@@ -99,6 +88,8 @@ namespace planeapicnic.Migrations
                     b.Property<string>("Continent")
                         .IsRequired();
 
+                    b.Property<string>("Keywords");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
@@ -108,19 +99,6 @@ namespace planeapicnic.Migrations
                     b.HasKey("CountryId");
 
                     b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("plane_a_picnic.Models.CountryTagModel", b =>
-                {
-                    b.Property<int>("CountryId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("CountryId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("CountryTagModel");
                 });
 
             modelBuilder.Entity("plane_a_picnic.Models.RegionModel", b =>
@@ -141,6 +119,8 @@ namespace planeapicnic.Migrations
                     b.Property<string>("IsoCountry")
                         .IsRequired();
 
+                    b.Property<string>("Keywords");
+
                     b.Property<string>("LocalCode")
                         .IsRequired();
 
@@ -155,19 +135,6 @@ namespace planeapicnic.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Regions");
-                });
-
-            modelBuilder.Entity("plane_a_picnic.Models.RegionTagModel", b =>
-                {
-                    b.Property<int>("RegionId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("RegionId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("RegionTagModel");
                 });
 
             modelBuilder.Entity("plane_a_picnic.Models.RunwayModel", b =>
@@ -222,20 +189,6 @@ namespace planeapicnic.Migrations
                     b.ToTable("Runways");
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.TagModel", b =>
-                {
-                    b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Keyword")
-                        .IsRequired();
-
-                    b.HasKey("TagId");
-
-                    b.ToTable("TagModel");
-                });
-
             modelBuilder.Entity("plane_a_picnic.Models.AirportModel", b =>
                 {
                     b.HasOne("plane_a_picnic.Models.RegionModel", "Region")
@@ -244,50 +197,11 @@ namespace planeapicnic.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.AirportTagModel", b =>
-                {
-                    b.HasOne("plane_a_picnic.Models.AirportModel", "Airport")
-                        .WithMany("Tags")
-                        .HasForeignKey("AirportId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("plane_a_picnic.Models.TagModel", "Tag")
-                        .WithMany("Airports")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("plane_a_picnic.Models.CountryTagModel", b =>
-                {
-                    b.HasOne("plane_a_picnic.Models.CountryModel", "Country")
-                        .WithMany("Tags")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("plane_a_picnic.Models.TagModel", "Tag")
-                        .WithMany("Countries")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("plane_a_picnic.Models.RegionModel", b =>
                 {
                     b.HasOne("plane_a_picnic.Models.CountryModel", "Country")
                         .WithMany("Regions")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("plane_a_picnic.Models.RegionTagModel", b =>
-                {
-                    b.HasOne("plane_a_picnic.Models.RegionModel", "Region")
-                        .WithMany("Tags")
-                        .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("plane_a_picnic.Models.TagModel", "Tag")
-                        .WithMany("Regions")
-                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
