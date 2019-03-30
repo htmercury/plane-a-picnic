@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace plane_a_picnic
 {
@@ -46,6 +47,8 @@ namespace plane_a_picnic
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
