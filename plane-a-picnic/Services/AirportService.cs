@@ -14,9 +14,15 @@ namespace plane_a_picnic.Services
         {
             _airportRepository = airportRepository;
         }
+
          public async Task<IEnumerable<AirportModel>> ListAsync()
          {
              return await _airportRepository.ListAsync();
+         }
+
+         public async Task<AirportModel> ListOneAsync(int id)
+         {
+             return await _airportRepository.ListOneAsync(id);
          }
     }
 }

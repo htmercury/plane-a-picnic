@@ -93,6 +93,7 @@ namespace planeapicnic.Migrations
                     RunwayId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AirportId = table.Column<int>(nullable: false),
+                    AirportIdent = table.Column<string>(nullable: false),
                     LengthFt = table.Column<double>(nullable: true),
                     WidthFt = table.Column<double>(nullable: true),
                     Surface = table.Column<string>(nullable: true),

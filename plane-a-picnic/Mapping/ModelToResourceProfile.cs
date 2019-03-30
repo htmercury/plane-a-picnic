@@ -8,6 +8,8 @@ namespace plane_a_picnic.Mapping
     {
         public ModelToResourceProfile()
         {
+            CreateMap<RunwayModel, RunwayResourceModel>();
+            CreateMap<AirportModel, AirportBasicResourceModel>();
             CreateMap<AirportModel, AirportResourceModel>();
         }
     }

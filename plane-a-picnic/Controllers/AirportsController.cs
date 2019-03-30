@@ -25,36 +25,20 @@ namespace plane_a_picnic.Controllers
         
         // GET api/airports
         [HttpGet]
-        public async Task<IEnumerable<AirportResourceModel>> GetAllAsync()
+        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync()
         {
             var airports = await _airportService.ListAsync();
-            var resources = _mapper.Map<IEnumerable<AirportModel>, IEnumerable<AirportResourceModel>>(airports);
+            var resources = _mapper.Map<IEnumerable<AirportModel>, IEnumerable<AirportBasicResourceModel>>(airports);
             return resources;
         }
 
         // GET api/airports/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<AirportResourceModel> GetOneAsync(int id)
         {
-            return "value";
-        }
-
-        // POST api/airports
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/airports/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/airports/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var airport = await _airportService.ListOneAsync(id);
+            var resource = _mapper.Map<AirportModel, AirportResourceModel>(airport);
+            return resource;
         }
     }
 }

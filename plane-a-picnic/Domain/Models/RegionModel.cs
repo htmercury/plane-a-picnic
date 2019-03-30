@@ -25,7 +25,8 @@ namespace plane_a_picnic.Domain.Models
         public string IsoCountry { get; set; }
 
         [Required]
-        [ForeignKey("CountryId")]
+        public int CountryId { get; set; }
+        [Required]
         public CountryModel Country { get; set; }
 
         public string WikipediaLink { get; set; }

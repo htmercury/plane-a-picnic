@@ -19,7 +19,7 @@ namespace planeapicnic.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("plane_a_picnic.Models.AirportModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.AirportModel", b =>
                 {
                     b.Property<int>("AirportId")
                         .ValueGeneratedOnAdd()
@@ -58,8 +58,7 @@ namespace planeapicnic.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int?>("RegionId")
-                        .IsRequired();
+                    b.Property<int>("RegionId");
 
                     b.Property<bool>("ScheduledService");
 
@@ -75,7 +74,7 @@ namespace planeapicnic.Migrations
                     b.ToTable("Airports");
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.CountryModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.CountryModel", b =>
                 {
                     b.Property<int>("CountryId")
                         .ValueGeneratedOnAdd()
@@ -100,7 +99,7 @@ namespace planeapicnic.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.RegionModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.RegionModel", b =>
                 {
                     b.Property<int>("RegionId")
                         .ValueGeneratedOnAdd()
@@ -111,8 +110,7 @@ namespace planeapicnic.Migrations
 
                     b.Property<string>("Continent");
 
-                    b.Property<int?>("CountryId")
-                        .IsRequired();
+                    b.Property<int>("CountryId");
 
                     b.Property<string>("IsoCountry")
                         .IsRequired();
@@ -134,13 +132,15 @@ namespace planeapicnic.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.RunwayModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.RunwayModel", b =>
                 {
                     b.Property<int>("RunwayId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AirportId")
+                    b.Property<int>("AirportId");
+
+                    b.Property<string>("AirportIdent")
                         .IsRequired();
 
                     b.Property<bool>("Closed");
@@ -184,25 +184,25 @@ namespace planeapicnic.Migrations
                     b.ToTable("Runways");
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.AirportModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.AirportModel", b =>
                 {
-                    b.HasOne("plane_a_picnic.Models.RegionModel", "Region")
+                    b.HasOne("plane_a_picnic.Domain.Models.RegionModel", "Region")
                         .WithMany("Airports")
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.RegionModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.RegionModel", b =>
                 {
-                    b.HasOne("plane_a_picnic.Models.CountryModel", "Country")
+                    b.HasOne("plane_a_picnic.Domain.Models.CountryModel", "Country")
                         .WithMany("Regions")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("plane_a_picnic.Models.RunwayModel", b =>
+            modelBuilder.Entity("plane_a_picnic.Domain.Models.RunwayModel", b =>
                 {
-                    b.HasOne("plane_a_picnic.Models.AirportModel", "Airport")
+                    b.HasOne("plane_a_picnic.Domain.Models.AirportModel", "Airport")
                         .WithMany("Runways")
                         .HasForeignKey("AirportId")
                         .OnDelete(DeleteBehavior.Cascade);

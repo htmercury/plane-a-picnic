@@ -7,5 +7,7 @@ namespace plane_a_picnic.Domain.Services
     public interface IAirportService
     {
          Task<IEnumerable<AirportModel>> ListAsync();
+         Task<AirportModel> ListOneAsync(int id);
+         
     }
 }

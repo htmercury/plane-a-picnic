@@ -4,11 +4,11 @@ namespace plane_a_picnic.Domain.Repositories
 {
     public abstract class BaseRepository
     {
-        protected readonly ModelContext _modelContext;
+        protected readonly ModelContext _context;
 
-        public BaseRepository(ModelContext modelContext)
+        public BaseRepository(ModelContext context)
         {
-            _modelContext = modelContext;
+            _context = context;
         }
     }
 }

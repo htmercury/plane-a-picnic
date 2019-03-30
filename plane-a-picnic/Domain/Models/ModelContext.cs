@@ -19,13 +19,16 @@ namespace plane_a_picnic.Domain.Models
         {
             modelBuilder.Entity<CountryModel>()
                 .HasMany(c => c.Regions)
-                .WithOne(r => r.Country);
+                .WithOne(r => r.Country)
+                .HasForeignKey(r => r.CountryId);
             modelBuilder.Entity<RegionModel>()
                 .HasMany(c => c.Airports)
-                .WithOne(a => a.Region);
+                .WithOne(a => a.Region)
+                .HasForeignKey(a => a.RegionId);
             modelBuilder.Entity<AirportModel>()
                 .HasMany(a => a.Runways)
-                .WithOne(r => r.Airport);
+                .WithOne(r => r.Airport)
+                .HasForeignKey(r => r.AirportId);
 
             base.OnModelCreating(modelBuilder);
         }

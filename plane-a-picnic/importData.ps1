@@ -92,14 +92,35 @@ for(;;) {
         break
     }
     $data = $line -split ',(?=(?:[^"]|"[^"]*")*$)'
+    $data[2] = $data[2].Replace("`"","")
     $data[5] = $data[5].Replace("`"","")
     $data[8] = $data[8].Replace("`"","")
     $data[14] = $data[14].Replace("`"","")
 
     $writer.WriteLine('{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|'`
-        + '{14}|{15}|{16}|{17}|{18}', $data[0], $data[1], $data[3], $data[4], $data[5]
-        , $data[6], $data[7], $data[8], $data[9], $data[10], $data[11], $data[12]
+        + '{14}|{15}|{16}|{17}|{18}|{19}', $data[0], $data[1], $data[2], $data[3], $data[4]
+        , $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11], $data[12]
         , $data[13], $data[14], $data[15], $data[16], $data[17], $data[18], $data[19])
 }
 $reader.Close()
 $writer.Close()
+
+$content = Get-Content './appsettings.json' -Raw
+$json = $content | Convertfrom-Json
+$user = $json.User
+$password = $json.Password
+$server = $json.Server
+$command = "bcp"
+[string[]] $countriesArgs = @('Countries', 'in', './Data/countries_out.csv', '-S', $server
+    , '-d', 'runwayDb', '-U', $user, '-P', $password, '-c', '-t\"|"', '-E')
+[string[]] $regionsArgs = @('Regions', 'in', './Data/regions_out.csv', '-S', $server
+    , '-d', 'runwayDb', '-U', $user, '-P', $password, '-c', '-t\"|"', '-E')
+[string[]] $airportsArgs = @('Airports', 'in', './Data/airports_out.csv', '-S', $server
+    , '-d', 'runwayDb', '-U', $user, '-P', $password, '-c', '-t\"|"', '-E')
+[string[]] $runwaysArgs = @('Runways', 'in', './Data/runways_out.csv', '-S', $server
+    , '-d', 'runwayDb', '-U', $user, '-P', $password, '-c', '-t\"|"', '-E')
+    
+Invoke-Expression "$command $countriesArgs"
+Invoke-Expression "$command $regionsArgs"
+Invoke-Expression "$command $airportsArgs"
+Invoke-Expression "$command $runwaysArgs"

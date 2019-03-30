@@ -35,8 +35,10 @@ namespace plane_a_picnic.Domain.Models
 
         [Required]
         public string IsoRegion { get; set; }
+
         [Required]
-        [ForeignKey("RegionId")]
+        public int RegionId { get; set; }
+        [Required]
         public RegionModel Region { get; set; }
 
         public string Municipality { get; set; }
