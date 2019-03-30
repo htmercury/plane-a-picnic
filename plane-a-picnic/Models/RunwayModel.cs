@@ -13,13 +13,10 @@ namespace plane_a_picnic.Models
         [ForeignKey("AirportId")]
         public AirportModel Airport { get; set; }
 
-        [Required]
-        public double LengthFt { get; set; }
+        public double? LengthFt { get; set; }
 
-        [Required]
-        public double WidthFt { get; set; }
+        public double? WidthFt { get; set; }
 
-        [Required]
         public string Surface { get; set; }
 
         [Required]
@@ -28,7 +25,6 @@ namespace plane_a_picnic.Models
         [Required]
         public bool Closed { get; set; }
 
-        [Required]
         public string LeIdent { get; set; }
 
         public double? LeLatitudeDeg { get; set; }
@@ -41,7 +37,7 @@ namespace plane_a_picnic.Models
 
         public double? LeDisplacedThresholdFt { get; set; }
 
-        public int HeIdent { get; set; }
+        public string HeIdent { get; set; }
 
         public double? HeLatitudeDeg { get; set; }
 

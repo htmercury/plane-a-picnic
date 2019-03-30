@@ -19,7 +19,6 @@ namespace plane_a_picnic.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public string Continent { get; set; }
 
         [Required]
@@ -29,7 +28,6 @@ namespace plane_a_picnic.Models
         [ForeignKey("CountryId")]
         public CountryModel Country { get; set; }
 
-        [Required]
         public string WikipediaLink { get; set; }
 
         public string Keywords { get; set; }

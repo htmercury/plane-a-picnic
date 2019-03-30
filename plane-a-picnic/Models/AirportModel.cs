@@ -25,8 +25,7 @@ namespace plane_a_picnic.Models
         [Required]
         public double LongitudeDeg { get; set; }
 
-        [Required]
-        public double ElevationFt { get; set; }
+        public double? ElevationFt { get; set; }
 
         [Required]
         public string Continent { get; set; }
@@ -40,7 +39,6 @@ namespace plane_a_picnic.Models
         [ForeignKey("RegionId")]
         public RegionModel Region { get; set; }
 
-        [Required]
         public string Municipality { get; set; }
 
         [Required]

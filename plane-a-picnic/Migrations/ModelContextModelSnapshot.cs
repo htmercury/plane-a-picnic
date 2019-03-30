@@ -28,7 +28,7 @@ namespace planeapicnic.Migrations
                     b.Property<string>("Continent")
                         .IsRequired();
 
-                    b.Property<double>("ElevationFt");
+                    b.Property<double?>("ElevationFt");
 
                     b.Property<string>("GpsCode");
 
@@ -53,8 +53,7 @@ namespace planeapicnic.Migrations
 
                     b.Property<double>("LongitudeDeg");
 
-                    b.Property<string>("Municipality")
-                        .IsRequired();
+                    b.Property<string>("Municipality");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -110,8 +109,7 @@ namespace planeapicnic.Migrations
                     b.Property<string>("Code")
                         .IsRequired();
 
-                    b.Property<string>("Continent")
-                        .IsRequired();
+                    b.Property<string>("Continent");
 
                     b.Property<int?>("CountryId")
                         .IsRequired();
@@ -127,8 +125,7 @@ namespace planeapicnic.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("WikipediaLink")
-                        .IsRequired();
+                    b.Property<string>("WikipediaLink");
 
                     b.HasKey("RegionId");
 
@@ -154,7 +151,7 @@ namespace planeapicnic.Migrations
 
                     b.Property<double?>("HeHeadingDegT");
 
-                    b.Property<int>("HeIdent");
+                    b.Property<string>("HeIdent");
 
                     b.Property<double?>("HeLatitudeDeg");
 
@@ -166,21 +163,19 @@ namespace planeapicnic.Migrations
 
                     b.Property<double?>("LeHeadingDegT");
 
-                    b.Property<string>("LeIdent")
-                        .IsRequired();
+                    b.Property<string>("LeIdent");
 
                     b.Property<double?>("LeLatitudeDeg");
 
                     b.Property<double?>("LeLongitudeDeg");
 
-                    b.Property<double>("LengthFt");
+                    b.Property<double?>("LengthFt");
 
                     b.Property<bool>("Lighted");
 
-                    b.Property<string>("Surface")
-                        .IsRequired();
+                    b.Property<string>("Surface");
 
-                    b.Property<double>("WidthFt");
+                    b.Property<double?>("WidthFt");
 
                     b.HasKey("RunwayId");
 
