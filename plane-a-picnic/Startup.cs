@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using plane_a_picnic.Models;
+using plane_a_picnic.Domain.Models;
+using plane_a_picnic.Domain.Services;
+using plane_a_picnic.Domain.Repositories;
+using plane_a_picnic.Services;
+using plane_a_picnic.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,12 +31,15 @@ namespace plane_a_picnic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddMemoryCache();
 
             services.AddDbContext<ModelContext>(options => 
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IAirportRepository, AirportRepository>();
+            services.AddScoped<IAirportService, AirportService>();
 
             // In production, the Aurelia files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace plane_a_picnic.Models
+namespace plane_a_picnic.Domain.Models
 {
     public class CountryModel
     {

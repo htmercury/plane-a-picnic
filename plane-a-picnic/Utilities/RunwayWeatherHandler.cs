@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using plane_a_picnic.Models;
+using plane_a_picnic.Domain.Models;
 
 namespace plane_a_picnic.Utilities
 {

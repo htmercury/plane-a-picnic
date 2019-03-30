@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace plane_a_picnic.Models
+namespace plane_a_picnic.Domain.Models
 {
     public class ModelContext : DbContext
     {
