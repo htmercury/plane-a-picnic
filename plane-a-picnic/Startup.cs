@@ -2,21 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using plane_a_picnic.Domain.Models;
-using plane_a_picnic.Domain.Services;
-using plane_a_picnic.Domain.Repositories;
-using plane_a_picnic.Services;
-using plane_a_picnic.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
+using plane_a_picnic.Domain.Models;
+using plane_a_picnic.Domain.Repositories;
+using plane_a_picnic.Domain.Services;
+using plane_a_picnic.Repositories;
+using plane_a_picnic.Services;
+using plane_a_picnic.Middleware;
 
 namespace plane_a_picnic
 {
@@ -35,8 +37,9 @@ namespace plane_a_picnic
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMemoryCache();
+            services.AddResponseCaching();
 
-            services.AddDbContext<ModelContext>(options => 
+            services.AddDbContext<ModelContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddScoped<IAirportRepository, AirportRepository>();
@@ -70,6 +73,9 @@ namespace plane_a_picnic
             {
                 app.UseSpaStaticFiles();
             }
+
+            app.UseResponseCaching();
+            app.UseCachingMiddleware();
 
             app.UseMvc(routes =>
             {

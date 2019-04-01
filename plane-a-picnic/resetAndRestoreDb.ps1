@@ -21,8 +21,6 @@ $params = @{
 }
 Invoke-Sqlcmd @params
 
-Invoke-Expression "dotnet ef migrations remove"
-Invoke-Expression "dotnet ef migrations add init"
 Invoke-Expression "dotnet ef database update"
 
 Invoke-Expression -Command ./importData.ps1
