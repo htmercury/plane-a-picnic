@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using plane_a_picnic.Models;
+using plane_a_picnic.Domain.Models;
 using plane_a_picnic.Utilities;
 
 namespace plane_a_picnic.Nunit.Tests
