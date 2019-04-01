@@ -18,7 +18,8 @@ using plane_a_picnic.Domain.Repositories;
 using plane_a_picnic.Domain.Services;
 using plane_a_picnic.Repositories;
 using plane_a_picnic.Services;
-using plane_a_picnic.Middleware;
+using plane_a_picnic.Settings.Middleware;
+using plane_a_picnic.Settings.Options;
 
 namespace plane_a_picnic
 {
@@ -34,16 +35,24 @@ namespace plane_a_picnic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<OpenWeatherOptions>(Configuration.GetSection("OpenWeather"));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMemoryCache();
             services.AddResponseCaching();
 
-            services.AddDbContext<ModelContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-
             services.AddScoped<IAirportRepository, AirportRepository>();
             services.AddScoped<IAirportService, AirportService>();
+            services.AddScoped<IOpenWeatherRepository, OpenWeatherRepository>();
+            services.AddScoped<IOpenWeatherService, OpenWeatherService>();
+
+            services.AddHttpClient("openWeather", c => 
+                c.BaseAddress = new Uri("https://api.openweathermap.org/")
+            );
+
+            services.AddDbContext<ModelContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             // In production, the Aurelia files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

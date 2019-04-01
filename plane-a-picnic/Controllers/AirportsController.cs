@@ -18,12 +18,15 @@ namespace plane_a_picnic.Controllers
     public class AirportsController : ControllerBase
     {
         private readonly IAirportService _airportService;
+        private readonly IOpenWeatherService _openWeatherService;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
-        public AirportsController(IAirportService airportService, IMapper mapper, IMemoryCache cache)
+        public AirportsController(IAirportService airportService, IMapper mapper
+            , IMemoryCache cache, IOpenWeatherService openWeatherService)
         {
             _airportService = airportService;
+            _openWeatherService = openWeatherService;
             _mapper = mapper;
             _cache = cache;
         }
@@ -44,6 +47,14 @@ namespace plane_a_picnic.Controllers
             var airport = await _airportService.ListOneAsync(id);
             var resource = _mapper.Map<AirportModel, AirportResourceModel>(airport);
             return resource;
+        }
+
+        // GET api/airports/5/weather
+        [HttpGet("{id}/weather")]
+        public async Task<WeatherResourceModel> GetWeather(int id)
+        {
+            var weather = await _openWeatherService.GetWeatherAsync(id);
+            return weather;
         }
 
         // sample route

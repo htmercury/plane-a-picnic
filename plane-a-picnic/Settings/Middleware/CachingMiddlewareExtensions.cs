@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace plane_a_picnic.Middleware
+namespace plane_a_picnic.Settings.Middleware
 {
     public static class CachingMiddlewareExtensions
     {

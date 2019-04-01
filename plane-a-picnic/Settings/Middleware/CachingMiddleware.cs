@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCaching;
 
-namespace plane_a_picnic.Middleware
+namespace plane_a_picnic.Settings.Middleware
 {
     public class CachingMiddleware
 {
