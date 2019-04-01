@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using plane_a_picnic.ActionFilters;
 using plane_a_picnic.Domain.Models;
 using plane_a_picnic.Domain.Services;
 using plane_a_picnic.ResourceModels;
-using plane_a_picnic.ActionFilters;
 
 namespace plane_a_picnic.Controllers
 {
@@ -22,8 +22,7 @@ namespace plane_a_picnic.Controllers
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
-        public AirportsController(IAirportService airportService, IMapper mapper
-            , IMemoryCache cache, IOpenWeatherService openWeatherService)
+        public AirportsController(IAirportService airportService, IMapper mapper, IMemoryCache cache, IOpenWeatherService openWeatherService)
         {
             _airportService = airportService;
             _openWeatherService = openWeatherService;
@@ -51,9 +50,14 @@ namespace plane_a_picnic.Controllers
 
         // GET api/airports/5/weather
         [HttpGet("{id}/weather")]
+        [NoCache]
         public async Task<WeatherResourceModel> GetWeather(int id)
         {
-            var weather = await _openWeatherService.GetWeatherAsync(id);
+            var weather = await _cache.GetOrCreateAsync(id, entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(3600);
+                return _openWeatherService.GetWeatherAsync(id);
+            });
             return weather;
         }
 
