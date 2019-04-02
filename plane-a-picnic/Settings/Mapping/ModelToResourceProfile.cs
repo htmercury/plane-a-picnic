@@ -11,6 +11,10 @@ namespace plane_a_picnic.Settings.Mapping
             CreateMap<RunwayModel, RunwayResourceModel>();
             CreateMap<AirportModel, AirportBasicResourceModel>();
             CreateMap<AirportModel, AirportResourceModel>();
+            CreateMap<RegionModel, RegionResourceModel>();
+            CreateMap<RegionModel, RegionBasicResourceModel>();
+            CreateMap<CountryModel, CountryResourceModel>();
+            CreateMap<CountryModel, CountryBasicResourceModel>();
         }
     }
 }

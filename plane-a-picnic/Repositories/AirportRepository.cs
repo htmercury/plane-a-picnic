@@ -13,9 +13,14 @@ namespace plane_a_picnic.Repositories
         {
         }
 
-        public async Task<IEnumerable<AirportModel>> ListAsync()
+        public async Task<IEnumerable<AirportModel>> ListAsync(int page, int pageSize)
         {
-            return await _context.Airports.ToListAsync();
+            int skip = pageSize * (page - 1);
+            return await _context.Airports
+                .OrderBy(airport => airport.IsoCountry)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<AirportModel> ListOneAsync(int id)

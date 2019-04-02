@@ -31,10 +31,10 @@ namespace plane_a_picnic.Controllers
         }
 
         // GET api/airports
-        [HttpGet]
-        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync()
+        [HttpGet()]
+        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync([FromQuery(Name="page")]int? page, [FromQuery(Name="pageSize")]int? pageSize)
         {
-            var airports = await _airportService.ListAsync();
+            var airports = await _airportService.ListAsync(page ?? 1, pageSize ?? 10);
             var resources = _mapper.Map<IEnumerable<AirportModel>, IEnumerable<AirportBasicResourceModel>>(airports);
             return resources;
         }

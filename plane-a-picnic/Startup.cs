@@ -46,6 +46,10 @@ namespace plane_a_picnic
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<IOpenWeatherRepository, OpenWeatherRepository>();
             services.AddScoped<IOpenWeatherService, OpenWeatherService>();
+            services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<IRegionService, RegionService>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICountryService, CountryService>();
 
             services.AddHttpClient("openWeather", c => 
                 c.BaseAddress = new Uri("https://api.openweathermap.org/")
