@@ -32,7 +32,7 @@ namespace plane_a_picnic.Repositories
             
             var response = await httpClient.GetAsync(
                 string.Format(
-                    "data/2.5/weather?lat={0}&lon={1}&APPID={2}",
+                    "data/2.5/forecast?lat={0}&lon={1}&appid={2}",
                     target.LatitudeDeg,
                     target.LongitudeDeg,
                     _config.Value.Key
@@ -43,6 +43,23 @@ namespace plane_a_picnic.Repositories
 
             var result = await response.Content
                 .ReadAsAsync<WeatherResourceModel>();
+
+            var len = result.List.Select(l => l.DtTxt.Date).Distinct().Count();
+            var list = new List[len];
+            // filter forecast entries by distinct Date.
+            int idx = 1;
+            var last = result.List[0].DtTxt.Date;
+            list[0] = result.List[0];
+            for (int i = 1; i < result.List.Length; i++)
+            {
+                if (result.List[i].DtTxt.Date != last) {
+                    last = result.List[i].DtTxt.Date;
+                    list[idx] = result.List[i];
+                    idx++;
+                }
+            }
+
+            result.List = list;
 
             return result;
         }

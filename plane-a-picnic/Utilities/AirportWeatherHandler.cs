@@ -2,18 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using plane_a_picnic.Domain.Models;
+using plane_a_picnic.ResourceModels;
 
 namespace plane_a_picnic.Utilities
 {
-    public class RunwayWeatherHandler
+    public class AirportWeatherHandler
     {
-        public List<RunwayModel> Runways { get; }
+        public int AirportId { get; set; }
+        public List<RunwayResourceModel> Runways { get; set; }
 
-        public RunwayWeatherHandler()
+        public AirportWeatherHandler()
         {
-            this.Runways = new List<RunwayModel>();
+            this.Runways = new List<RunwayResourceModel>();
+            this.AirportId = -1;
         }
-        public RunwayWeatherHandler(List<RunwayModel> runways)
+        public AirportWeatherHandler(List<RunwayResourceModel> runways)
         {
             this.Runways = runways.FindAll(r => r.LeHeadingDegT.HasValue).OrderBy(r => r.LeHeadingDegT).ToList();
         }
@@ -23,7 +26,7 @@ namespace plane_a_picnic.Utilities
             return (angle + 180) % 360;
         }
 
-        private double CalcAngleProximity(double angle1, double angle2)
+        public double CalcAngleProximity(double angle1, double angle2)
         {
             double distance1 = Math.Abs(angle1 - angle2);
             double distance2;
@@ -38,7 +41,7 @@ namespace plane_a_picnic.Utilities
             return Math.Min(distance1, distance2);
         }
 
-        public RunwayModel CalcLandingRunway(double windAngle)
+        public RunwayResourceModel CalcLandingRunway(double windAngle)
         {
             double runwayCount = this.Runways.Count();
             double opposingAngle = this.CalcOppositeAngle(windAngle);

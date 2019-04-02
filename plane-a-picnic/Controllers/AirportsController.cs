@@ -10,6 +10,7 @@ using plane_a_picnic.ActionFilters;
 using plane_a_picnic.Domain.Models;
 using plane_a_picnic.Domain.Services;
 using plane_a_picnic.ResourceModels;
+using plane_a_picnic.Utilities;
 
 namespace plane_a_picnic.Controllers
 {
@@ -21,6 +22,7 @@ namespace plane_a_picnic.Controllers
         private readonly IOpenWeatherService _openWeatherService;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
+        private AirportWeatherHandler _handler;
 
         public AirportsController(IAirportService airportService, IMapper mapper, IMemoryCache cache, IOpenWeatherService openWeatherService)
         {
@@ -28,13 +30,15 @@ namespace plane_a_picnic.Controllers
             _openWeatherService = openWeatherService;
             _mapper = mapper;
             _cache = cache;
+            _handler = new AirportWeatherHandler();
         }
 
         // GET api/airports
         [HttpGet()]
-        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync([FromQuery(Name="page")]int? page, [FromQuery(Name="pageSize")]int? pageSize)
+        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync([FromQuery(Name = "page")] int? page, [FromQuery(Name = "pageSize")] int? pageSize)
         {
-            var airports = await _cache.GetOrCreateAsync("airports", entry => {
+            var airports = await _cache.GetOrCreateAsync("airports", entry =>
+            {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(3600);
                 return _airportService.ListAsync();
             });
@@ -68,24 +72,26 @@ namespace plane_a_picnic.Controllers
             return weather;
         }
 
-        // sample route
-        // GET: api/airports/memorycache
-        [HttpGet("memorycache")]
-        [NoCache]
-        public string Get()
+        // GET api/airports/5/prediction
+        [HttpGet("{id}/prediction")]
+        public async Task<IEnumerable<RunwayResourceModel>> PredictLandingRunways(int id)
         {
-            var cacheEntry = _cache.GetOrCreate("MyCacheKey", entry =>
+            // setup
+            if (_handler.AirportId != id)
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
-                return LongTimeOperation();
-            });
-            return cacheEntry;
-        }
+                _handler.AirportId = id;
+                var airport = await GetOneAsync(id);
+                _handler.Runways = airport.Runways;
+            }
 
-        private string LongTimeOperation()
-        {
-            Thread.Sleep(5000);
-            return "Long time operation done!";
+            var weather = await GetWeather(id);
+            var predictions = new List<RunwayResourceModel>();
+            for (int i = 0; i < weather.List.Length; i++)
+            {
+                var runway = _handler.CalcLandingRunway(weather.List[i].Wind.Deg);
+                predictions.Add(runway);
+            }
+            return predictions;
         }
     }
 }
