@@ -10,7 +10,7 @@ namespace plane_a_picnic.ResourceModels
         public string Continent { get; set; }
         public string IsoCountry { get; set; }
         public int CountryId { get; set; }
-        public CountryResourceModel Country { get; set; }
+        public CountryBasicResourceModel Country { get; set; }
         public string WikipediaLink { get; set; }
         public string Keywords { get; set; }
         public List<AirportBasicResourceModel> Airports { get; set; }
