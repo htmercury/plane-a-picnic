@@ -6,4 +6,8 @@ export default class CountryService extends BaseService {
     return this.http.fetch('api/countries')
       .then(response => response.json());
   }
+  getCountry(id) {
+    return this.http.fetch(`api/countries/${id}`)
+      .then(response => response.json());
+  }
 }

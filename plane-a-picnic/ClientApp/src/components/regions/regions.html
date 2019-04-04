@@ -1,4 +1,6 @@
 <template>
   <p>regions</p>
-  <p repeat.for="region of regions">${region.name}</p>
+  <div repeat.for="region of regions">
+    <a href="/regions/${region.regionId}">${region.name}</a>
+  </div>
 </template>

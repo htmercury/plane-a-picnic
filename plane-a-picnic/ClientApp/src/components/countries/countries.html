@@ -1,4 +1,6 @@
 <template>
   <p>countries</p>
-  <p repeat.for="country of countries">${country.name}</p>
+  <div repeat.for="country of countries">
+    <a href="/countries/${country.countryId}">${country.name}</a>
+  </div>
 </template>

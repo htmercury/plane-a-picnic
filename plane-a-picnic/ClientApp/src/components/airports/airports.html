@@ -1,4 +1,17 @@
 <template>
-  <p>airports</p>
-  <p repeat.for="airport of airports">${airport.name}</p>
+  <require from="./airports.css"></require>
+  <div class="ui container airports">
+    <h2>Airports</h2>
+    <div repeat.for="airport of airports">
+      <a href="/airports/${airport.airportId}">${airport.name}</a>
+    </div>
+  </div>
+  <div class="ui borderless menu">
+    <a class="item">1</a>
+    <a class="item">2</a>
+    <a class="item">3</a>
+    <a class="item">4</a>
+    <a class="item">5</a>
+    <a class="item">6</a>
+  </div>
 </template>

@@ -16,7 +16,7 @@ namespace plane_a_picnic.Repositories
         public async Task<IEnumerable<AirportModel>> ListAsync()
         {
             return await _context.Airports
-                .OrderBy(airport => airport.IsoCountry)
+                .OrderBy(airport => airport.Name)
                 .ToListAsync();
         }
 

@@ -57,6 +57,11 @@ for(;;) {
     }
     #$data = $line.Replace("`"","")
     $data = $line -split ',(?=(?:[^"]|"[^"]*")*$)'
+    $name = $data[3]
+    if ($name.ToLower().Contains("duplicate") -or $name.Contains("+") -or $name.ToLower().Contains("`(old`)") -or $name.ToLower().Contains("delete"))
+    {
+        continue;
+    }
     $data[1] = $data[1].Replace("`"","")
     $data[2] = $data[2].Replace("`"","")
     $data[3] = $data[3].Replace("`"","")

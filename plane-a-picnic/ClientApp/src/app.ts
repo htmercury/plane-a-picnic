@@ -18,8 +18,11 @@ export class App {
     config.map([
       { route: ['', 'home'], name: 'home', nav: true, moduleId: PLATFORM.moduleName('./components/home/home'), title: 'home' },
       { route: '/countries', name: 'countries', nav: true, moduleId: PLATFORM.moduleName('./components/countries/countries'), title: 'countries' },
+      { route: '/countries/:id', name: 'countryProfile', moduleId: PLATFORM.moduleName('./components/countries/countryProfile/countryProfile'), title: 'countryProfile' },
       { route: '/regions', name: 'regions', nav: true, moduleId: PLATFORM.moduleName('./components/regions/regions'), title: 'regions' },
-      { route: '/airports', name: 'airports', nav: true, moduleId: PLATFORM.moduleName('./components/airports/airports'), title: 'airports' }
+      { route: '/regions/:id', name: 'regionProfile', moduleId: PLATFORM.moduleName('./components/regions/regionProfile/regionProfile'), title: 'regionProfile' },
+      { route: '/airports', name: 'airports', nav: true, moduleId: PLATFORM.moduleName('./components/airports/airports'), title: 'airports' },
+      { route: '/airports/:id', name: 'airportProfile', moduleId: PLATFORM.moduleName('./components/airports/airportProfile/airportProfile'), title: 'airportProfile' }
     ]);
     
     config.mapUnknownRoutes('not-found');
