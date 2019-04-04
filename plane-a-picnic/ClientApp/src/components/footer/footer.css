@@ -1,0 +1,9 @@
+.footer {
+  background-color: #FAFAFA;
+  padding: 1rem 1.75rem;
+}
+
+.footer h4 {
+  font-family: 'Roboto Slab', serif;
+  margin-bottom: 0.5rem;
+}

@@ -4,11 +4,15 @@
 
 .header-container {
   display: flex;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #FAFAFB;
 }
 
 #menu {
-  padding: 0 5px;
-  background-color: white;
+  background-color: transparent;
+  height: 24px;
+  padding-top: 5px;
 }
 
 #menu i {

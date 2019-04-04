@@ -1,21 +1,12 @@
 <template>
+  <require from="./assets/styles/main.css"></require>
   <require from="./components/header/header.html"></require>
-  <header></header>
-  <div class="ui bottom attached segment pushable">
-    <div class="ui thin vertical inverted sidebar menu">
-      <a class="item">
-        Home
-      </a>
-      <a class="item">
-        Topics
-      </a>
-      <a class="item">
-        Friends
-      </a>
-    </div>
-    <div class="pusher">
-      <h1>${message}</h1>
+  <require from="./components/footer/footer.html"></require>
+  <div class="app-container">
+    <header></header>
+    <div class="route-container">
       <router-view></router-view>
     </div>
+    <footer></footer>
   </div>
 </template>

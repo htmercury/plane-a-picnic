@@ -1,7 +1,6 @@
 import { Aurelia, inject, TaskQueue } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import { RouterConfiguration, Router } from 'aurelia-router';
-import 'semantic-ui';
 
 @inject(TaskQueue)
 export class App {
@@ -13,22 +12,23 @@ export class App {
   }
 
   configureRouter(config: RouterConfiguration, router: Router): void {
-    this.router = router;
     config.title = 'Aurelia';
+    config.options.pushState = true;
+    config.options.root = '/';
     config.map([
-      { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('components/home/home') },
+      { route: ['', 'home'], name: 'home', nav: true, moduleId: PLATFORM.moduleName('./components/home/home'), title: 'home' },
+      { route: '/countries', name: 'countries', nav: true, moduleId: PLATFORM.moduleName('./components/countries/countries'), title: 'countries' }
     ]);
+    
+    config.mapUnknownRoutes('not-found');
+    this.router = router;
   }
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
-      $('.context.example .ui.sidebar')
-        .sidebar({
-          context: $('.context.example .bottom.segment')
-        })
-        .sidebar('attach events', '.context.example .menu .item')
-        ;
-  });
-}
+      ($('.ui.dropdown') as any)
+        .dropdown();
+    });
+  }
 }
 
