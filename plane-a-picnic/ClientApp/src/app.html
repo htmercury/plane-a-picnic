@@ -1,3 +1,21 @@
 <template>
-  <h1>${message}</h1>
+  <require from="./components/header/header.html"></require>
+  <header></header>
+  <div class="ui bottom attached segment pushable">
+    <div class="ui thin vertical inverted sidebar menu">
+      <a class="item">
+        Home
+      </a>
+      <a class="item">
+        Topics
+      </a>
+      <a class="item">
+        Friends
+      </a>
+    </div>
+    <div class="pusher">
+      <h1>${message}</h1>
+      <router-view></router-view>
+    </div>
+  </div>
 </template>

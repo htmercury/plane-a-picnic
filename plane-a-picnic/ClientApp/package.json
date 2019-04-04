@@ -9,10 +9,11 @@
   "scripts": {},
   "license": "MIT",
   "dependencies": {
-    "aurelia-bootstrapper": "^2.3.0",
     "aurelia-animator-css": "^1.0.4",
+    "aurelia-bootstrapper": "^2.3.0",
+    "aurelia-polyfills": "^1.3.0",
     "bluebird": "^3.5.2",
-    "aurelia-polyfills": "^1.3.0"
+    "copy-webpack-plugin": "^5.0.2"
   },
   "peerDependencies": {},
   "devDependencies": {
@@ -27,7 +28,6 @@
     "aurelia-testing": "^1.0.0",
     "aurelia-tools": "^2.0.0",
     "aurelia-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "del": "^3.0.0",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",

@@ -14,7 +14,7 @@ const when = (condition, config, negativeConfig) =>
   condition ? ensureArray(config) : ensureArray(negativeConfig);
 
 // primary config:
-const title = 'Aurelia Navigation Skeleton';
+const title = 'Plane a Picnic';
 const outDir = path.resolve(__dirname, project.platform.output);
 const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
@@ -164,6 +164,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
         title, server, baseUrl
       }
     }),
+    new CopyWebpackPlugin([{ from: "favicon.ico", to: "favicon.ico" }]),
     // ref: https://webpack.js.org/plugins/mini-css-extract-plugin/
     ...when(extractCss, new MiniCssExtractPlugin({ // updated to match the naming conventions for the js files
       filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',
