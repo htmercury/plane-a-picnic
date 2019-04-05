@@ -15,7 +15,9 @@ namespace plane_a_picnic.Repositories
 
         public async Task<IEnumerable<RegionModel>> ListAsync()
         {
-            return await _context.Regions.ToListAsync();
+            return await _context.Regions
+                .OrderBy(r => r.Name)
+                .ToListAsync();
         }
 
         public async Task<RegionModel> ListOneAsync(int id)

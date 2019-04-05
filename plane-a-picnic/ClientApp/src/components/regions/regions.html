@@ -1,6 +1,12 @@
 <template>
-  <p>regions</p>
-  <div repeat.for="region of regions">
-    <a href="/regions/${region.regionId}">${region.name}</a>
+  <div class="ui container regions">
+    <h2>Regions</h2>
+    <div class="virtual-repeater-wrapper">
+      <div if="condition.bind: loading" class="ui active indeterminate loader"></div>
+      <div class="virtual-repeated-item" virtual-repeat.for="region of displayRegions"
+        infinite-scroll-next="getMore">
+        <a href="/regions/${region.regionId}">${region.name}</a>
+      </div>
+    </div>
   </div>
 </template>

@@ -34,6 +34,11 @@ for(;;) {
     }
     $data = $line.Replace("`"","")
     $data = $data.Split(",")
+    $name = $data[3]
+    if ($name.ToLower().Contains("(unassigned)"))
+    {
+        continue
+    }
     $data[4] = $data[4].Trim()
 
     $regions.Add($data[1], $data[0])
@@ -44,7 +49,6 @@ for(;;) {
 }
 $reader.Close()
 $writer.Close()
-
 Write-Host "Formatting airports..."
 ## Airports
 $reader = [System.IO.File]::OpenText('./Data/airports.csv')
@@ -57,11 +61,6 @@ for(;;) {
     }
     #$data = $line.Replace("`"","")
     $data = $line -split ',(?=(?:[^"]|"[^"]*")*$)'
-    $name = $data[3]
-    if ($name.ToLower().Contains("duplicate") -or $name.Contains("+") -or $name.ToLower().Contains("`(old`)") -or $name.ToLower().Contains("delete"))
-    {
-        continue;
-    }
     $data[1] = $data[1].Replace("`"","")
     $data[2] = $data[2].Replace("`"","")
     $data[3] = $data[3].Replace("`"","")
@@ -70,6 +69,12 @@ for(;;) {
     }
     $data[16] = $data[16].Trim()
     $data[17] = $data[17].Trim()
+    $id = $regions[$data[9]]
+    $name = $data[3]
+    if ($name.ToLower().Contains("duplicate") -or $name.Contains("+") -or $name.ToLower().Contains("`(old`)") -or $name.ToLower().Contains("delete") -or ($null -eq $id))
+    {
+        continue
+    }
     
     if ("no" -eq $data[11]) {
         $data[11] = 0

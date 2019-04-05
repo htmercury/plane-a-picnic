@@ -47,7 +47,14 @@ namespace plane_a_picnic.Controllers
             int pS = pageSize ?? 20;
             int skip = pS * (p - 1);
 
-            return resources.Skip(skip).Take(pS);
+            if (page == null)
+            {
+                return resources;
+            }
+            else
+            {
+                return resources.Skip(skip).Take(pS);
+            }
         }
 
         // GET api/airports/5

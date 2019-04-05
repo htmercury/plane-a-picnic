@@ -13,3 +13,15 @@
 .route-container {
   flex: 1;
 }
+
+.virtual-repeater-wrapper {
+  height: 450px;
+  overflow: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.virtual-repeated-item {
+ background: #F7F7F7;
+ height: 20px;
+}

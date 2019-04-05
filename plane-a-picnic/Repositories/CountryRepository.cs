@@ -15,7 +15,9 @@ namespace plane_a_picnic.Repositories
 
         public async Task<IEnumerable<CountryModel>> ListAsync()
         {
-            return await _context.Countries.ToListAsync();
+            return await _context.Countries
+                .OrderBy(c => c.Name)
+                .ToListAsync();
         }
 
         public async Task<CountryModel> ListOneAsync(int id)

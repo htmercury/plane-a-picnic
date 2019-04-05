@@ -6,26 +6,39 @@ import AirportService from '../../services/AirportService';
 @autoinject
 export class Airports {
   taskQueue: TaskQueue;
-  page: number;
+  index: number;
+  loading: boolean;
   public airports: Array<Airport>;
+  public displayAirports: Array<Airport>;
   private _airportService: AirportService;
 
   constructor(TaskQueue: TaskQueue, airportService: AirportService) {
     this.taskQueue = TaskQueue;
     this._airportService = airportService;
+    this.airports = [];
+    this.displayAirports = [];
+    this.index = 0;
+    this.loading = true;
   }
 
-  activate(params) {
-    this.page = params.page;
-    if (params.page == null) {
-      this.page = 1;
+  getMore(topIndex, isAtBottom, isAtTop) {
+    if (isAtBottom) {
+      for (let i = 0; i < 32; i++) {
+        this.displayAirports.push(this.airports[this.index]);
+        this.index++;
+      }
     }
   }
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
-      this._airportService.getAllAirports(this.page)
-        .then(airports => this.airports = airports as Array<Airport>);
+      this._airportService.getAllAirports()
+        .then(airports => {
+          this.airports = airports as Array<Airport>;
+          this.displayAirports = this.airports.slice(0, 128);
+          this.index = 128;
+          this.loading = false;
+        });
     });
   }
 }
