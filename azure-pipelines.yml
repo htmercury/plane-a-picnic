@@ -45,7 +45,7 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)' 
   inputs:
     contents: |
-      src/web-app/*.*
+      plane-a-picnic/ClientApp/Dist/*.*
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
