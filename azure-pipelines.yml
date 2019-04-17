@@ -20,13 +20,39 @@ steps:
   displayName: 'dotnet test $(buildConfiguration)'
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
+    projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: npm install -g aurelia
+  displayName: 'Install Aurelia CLI'
+
+- script: |
+    cd plane-a-picnic/ClientApp
+    npm install
+  displayName: 'npm install'
+
+- script: |
+    cd plane-a-picnic/ClientApp
+    au build -env prod
+  displayName: 'au build'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)' 
+  inputs:
+    contents: |
+      src/web-app/*.*
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish $(buildConfiguration)'
   inputs:
     command: publish
+    projects: 'plane-a-picnic/*.csproj'
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
