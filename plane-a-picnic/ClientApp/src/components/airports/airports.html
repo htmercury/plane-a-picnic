@@ -1,7 +1,9 @@
 <template>
   <require from="./airports.css"></require>
   <div class="ui container airports">
-    <h2>Airports</h2>
+    <div class="ui breadcrumb">
+      <div class="active section">Airports</div>
+    </div>
     <div class="virtual-repeater-wrapper">
       <div if="condition.bind: loading" class="ui active indeterminate loader"></div>
       <div class="virtual-repeated-item" virtual-repeat.for="airport of displayAirports" infinite-scroll-next="getMore">

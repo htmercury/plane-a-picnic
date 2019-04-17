@@ -1,6 +1,8 @@
 <template>
   <div class="ui container countries">
-    <h2>Countries</h2>
+    <div class="ui breadcrumb">
+      <div class="active section">Countries</div>
+    </div>
     <div class="virtual-repeater-wrapper">
       <div if="condition.bind: loading" class="ui active indeterminate loader"></div>
       <div class="virtual-repeated-item" repeat.for="country of countries" infinite-scroll-next="getMore">

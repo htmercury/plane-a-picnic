@@ -28,6 +28,9 @@ export class Home {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .home.item').addClass('active');
+
       $('.ui.search').hide();
       $('.countries.ui.search').show();
 

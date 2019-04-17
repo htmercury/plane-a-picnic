@@ -21,6 +21,9 @@ export class Countries {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .countries.item').addClass('active');
+      
       this._countryService.getAllCountries()
         .then(countries => {
           this.countries = countries as Array<Country>;

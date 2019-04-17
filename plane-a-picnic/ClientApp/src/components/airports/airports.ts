@@ -32,6 +32,9 @@ export class Airports {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .airports.item').addClass('active');
+
       this._airportService.getAllAirports()
         .then(airports => {
           this.airports = airports as Array<Airport>;

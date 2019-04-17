@@ -21,6 +21,9 @@ export class CountryProfile {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .countries.item').addClass('active');
+
       this._countryService.getCountry(this.id)
         .then(country => this.country = country as Country);
     });

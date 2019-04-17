@@ -21,6 +21,9 @@ export class RegionProfile {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .regions.item').addClass('active');
+
       this._regionService.getRegion(this.id)
         .then(region => this.region = region as Region);
     });

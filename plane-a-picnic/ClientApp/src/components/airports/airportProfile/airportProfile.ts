@@ -21,6 +21,9 @@ export class AirportProfile {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .airports.item').addClass('active');
+
       this._airportService.getAirport(this.id)
         .then(airport => this.airport = airport as Airport);
     });

@@ -35,6 +35,9 @@ export class Regions {
 
   attached() {
     this.taskQueue.queueMicroTask(() => {
+      $('.menu > .item').removeClass('active');
+      $('.menu > .regions.item').addClass('active');
+
       this._regionService.getAllRegions()
         .then(regions => {
           this.regions = regions as Array<Region>;
