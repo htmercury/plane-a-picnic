@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +25,19 @@ namespace plane_a_picnic.Controllers
 
         // GET api/regions
         [HttpGet]
-        public async Task<IEnumerable<RegionBasicResourceModel>> GetAllAsync()
+        public async Task<IEnumerable<RegionBasicResourceModel>> GetAllAsync([FromQuery(Name = "q")] string q)
         {
             var regions = await _regionService.ListAsync();
             var resources = _mapper.Map<IEnumerable<RegionModel>, IEnumerable<RegionBasicResourceModel>>(regions);
-            return resources;
+            
+            if (q == null)
+            {
+                return resources;
+            }
+            else
+            {
+                return resources.Where(r => r.Name.Contains(q, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         // GET api/regions/5

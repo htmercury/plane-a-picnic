@@ -35,7 +35,7 @@ namespace plane_a_picnic.Controllers
 
         // GET api/airports
         [HttpGet()]
-        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync([FromQuery(Name = "page")] int? page, [FromQuery(Name = "pageSize")] int? pageSize)
+        public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync([FromQuery(Name = "q")] string q)
         {
             var airports = await _cache.GetOrCreateAsync("airports", entry =>
             {
@@ -43,17 +43,14 @@ namespace plane_a_picnic.Controllers
                 return _airportService.ListAsync();
             });
             var resources = _mapper.Map<IEnumerable<AirportModel>, IEnumerable<AirportBasicResourceModel>>(airports);
-            int p = page ?? 1;
-            int pS = pageSize ?? 20;
-            int skip = pS * (p - 1);
 
-            if (page == null)
+            if (q == null)
             {
                 return resources;
             }
             else
             {
-                return resources.Skip(skip).Take(pS);
+                return resources.Where(r => r.Name.Contains(q, StringComparison.OrdinalIgnoreCase));
             }
         }
 
