@@ -7,12 +7,14 @@ import RegionService from '../../../services/RegionService';
 export class RegionProfile {
   taskQueue: TaskQueue;
   id: number;
+  emptyAirport: Boolean;
   public region: Region;
   private _regionService: RegionService;
 
   constructor(TaskQueue: TaskQueue, regionService: RegionService) {
     this.taskQueue = TaskQueue;
     this._regionService = regionService;
+    this.emptyAirport = false;
   }
 
   activate(params) {
@@ -25,7 +27,13 @@ export class RegionProfile {
       $('.menu > .regions.item').addClass('active');
 
       this._regionService.getRegion(this.id)
-        .then(region => this.region = region as Region);
+        .then(region => {
+          this.region = region as Region;
+          if (this.region.airports.length == 0) {
+            console.log(this.region.airports.length, 'testt');
+            this.emptyAirport = true;
+          }
+        });
     });
   }
 }

@@ -1,3 +1,5 @@
+import Airport from "./Airport";
+
 export default class Region {
   regionId : number;
   name: string;
@@ -5,5 +7,6 @@ export default class Region {
   isoCountry: string;
   countryId: number;
   wikipediaLink: string;
+  airports: Array<Airport>
   keywords: string;
 }

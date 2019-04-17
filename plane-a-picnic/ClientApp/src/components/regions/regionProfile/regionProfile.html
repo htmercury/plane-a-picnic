@@ -5,7 +5,8 @@
       <i class="right angle icon divider"></i>
       <div class="active section">${region.name}</div>
     </div>
-    <h2 class="title">Airports</h2>
+    <h2 class="title-header">Airports</h2>
+    <div if.bind="emptyAirport" class="ui container"><p>no airports are here.</p></div>
     <div class="virtual-repeater-wrapper">
       <div class="virtual-repeated-item" repeat.for="airport of region.airports">
         <a href="/airports/${airport.airportId}">${airport.name}</a>
