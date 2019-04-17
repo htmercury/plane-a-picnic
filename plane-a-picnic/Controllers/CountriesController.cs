@@ -48,5 +48,14 @@ namespace plane_a_picnic.Controllers
             var resource = _mapper.Map<CountryModel, CountryResourceModel>(country);
             return resource;
         }
+
+        // GET api/countries/iso/us
+        [HttpGet("iso/{code}")]
+        public async Task<CountryResourceModel> GetOneByCodeAsync(string code)
+        {
+            var country = await _countryService.ListOneByCodeAsync(code);
+            var resource = _mapper.Map<CountryModel, CountryResourceModel>(country);
+            return resource;
+        }
     }
 }

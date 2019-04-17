@@ -5,8 +5,21 @@
       <i class="right angle icon divider"></i>
       <div class="active section">${region.name}</div>
     </div>
-    <h2 class="title-header">Airports</h2>
-    <div if.bind="emptyAirport" class="ui container"><p>no airports are here.</p></div>
+    <div class="ui message">
+      <div class="header">
+        Info
+      </div>
+      <ul class="list">
+        <li><p>Continent: ${region.continent}</p></li>
+        <li><p>Country: <a href='/countries/${countryId}'>${countryName}</a></p></li>
+        <li><p>Wikipedia: <a href='${region.wikipediaLink}'>${region.wikipediaLink}</a><span if.bind="!region.wikipediaLink">N/A</span></p></li>
+        <li><p>Keywords: ${region.keywords}<span if.bind="!region.keywords">N/A</span></p></li>
+      </ul>
+    </div>
+    <h3 class="title-header">Airports</h3>
+    <div if.bind="emptyAirport" class="ui container">
+      <p>no airports are here.</p>
+    </div>
     <div class="virtual-repeater-wrapper">
       <div class="virtual-repeated-item" repeat.for="airport of region.airports">
         <a href="/airports/${airport.airportId}">${airport.name}</a>

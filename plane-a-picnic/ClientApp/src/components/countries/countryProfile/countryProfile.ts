@@ -7,12 +7,14 @@ import CountryService from '../../../services/CountryService';
 export class CountryProfile {
   taskQueue: TaskQueue;
   id: number;
+  emptyRegion: Boolean;
   public country: Country;
   private _countryService: CountryService;
 
   constructor(TaskQueue: TaskQueue, countryService: CountryService) {
     this.taskQueue = TaskQueue;
     this._countryService = countryService;
+    this.emptyRegion = false;
   }
 
   activate(params) {
@@ -25,7 +27,12 @@ export class CountryProfile {
       $('.menu > .countries.item').addClass('active');
 
       this._countryService.getCountry(this.id)
-        .then(country => this.country = country as Country);
+        .then(country => {
+          this.country = country as Country;
+          if (this.country.regions.length == 0) {
+            this.emptyRegion = true;
+          }
+        });
     });
   }
 }
