@@ -44,7 +44,18 @@ steps:
 - task: CopyFiles@2
   inputs:
     Contents: 'plane-a-picnic/ClientApp/dist/**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/ClientApp/dist'
+    TargetFolder: 'build'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'build'
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)/spa.zip'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/spa.zip'
+    ArtifactName: 'spabuild'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish $(buildConfiguration)'
