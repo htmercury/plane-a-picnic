@@ -53,7 +53,7 @@ steps:
   inputs:
     command: publish
     projects: 'plane-a-picnic/*.csproj'
-    publishWebProjects: True
+    publishWebProjects: False
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
