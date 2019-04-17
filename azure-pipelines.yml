@@ -42,11 +42,9 @@ steps:
   displayName: 'au build'
 
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)' 
   inputs:
-    contents: |
-      plane-a-picnic/ClientApp/Dist/*.*
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    Contents: 'plane-a-picnic/ClientApp/dist/**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/ClientApp/dist'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish $(buildConfiguration)'
