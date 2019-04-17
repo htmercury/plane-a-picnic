@@ -28,5 +28,12 @@ namespace plane_a_picnic.Repositories
                 .Include(region => region.Country)
                 .FirstOrDefaultAsync();
         }
+        
+        public async Task<RegionModel> ListOneByCodeAsync(string code)
+        {
+            return await _context.Regions
+                .Where(region => region.Code == code)
+                .FirstOrDefaultAsync();
+        }
     }
 }

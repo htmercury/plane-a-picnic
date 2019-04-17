@@ -8,5 +8,7 @@ namespace plane_a_picnic.Domain.Repositories
     {
         Task<IEnumerable<RegionModel>> ListAsync();
         Task<RegionModel> ListOneAsync(int id);
+
+        Task<RegionModel> ListOneByCodeAsync(string code);
     }
 }

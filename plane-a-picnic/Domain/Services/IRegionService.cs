@@ -8,5 +8,6 @@ namespace plane_a_picnic.Domain.Services
     {
         Task<IEnumerable<RegionModel>> ListAsync();
         Task<RegionModel> ListOneAsync(int id);    
+        Task<RegionModel> ListOneByCodeAsync(string code);
     }
 }

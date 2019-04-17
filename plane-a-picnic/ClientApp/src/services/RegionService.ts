@@ -10,4 +10,8 @@ export default class RegionService extends BaseService {
     return this.http.fetch(`api/regions/${id}`)
       .then(response => response.json());
   }
+  getRegionByCode(code) {
+    return this.http.fetch(`api/regions/iso/${code}`)
+      .then(response => response.json());
+  }
 }

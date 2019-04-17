@@ -11,8 +11,8 @@
       </div>
       <ul class="list">
         <li><p>Continent: ${airport.continent}</p></li>
-        <li><p>Country: <a href='/airports/${countryId}'>${countryName}</a></p></li>
-        <li><p>Region: <a href='/airports/${regionId}'>${airport.isoRegion}</a></p></li>
+        <li><p>Country: <a href='/countries/${countryId}'>${countryName}</a></p></li>
+        <li><p>Region: <a href='/regions/${regionId}'>${regionName}</a></p></li>
         <li><p>Wikipedia: <a href='${region.wikipediaLink}'>${airport.wikipediaLink}</a><span if.bind="!airport.wikipediaLink">N/A</span></p></li>
         <li><p>Keywords: ${airport.keywords}<span if.bind="!airport.keywords">N/A</span></p></li>
       </ul>

@@ -24,5 +24,10 @@ namespace plane_a_picnic.Services
         {
             return await _regionRepository.ListOneAsync(id);
         }
+
+        public async Task<RegionModel> ListOneByCodeAsync(string code)
+        {
+            return await _regionRepository.ListOneByCodeAsync(code);
+        }
     }
 }
