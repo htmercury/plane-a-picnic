@@ -26,3 +26,8 @@
  background: #F7F7F7;
  height: 20px;
 }
+
+.title {
+  font-family: 'Roboto Slab', serif;
+  text-align: center;
+}

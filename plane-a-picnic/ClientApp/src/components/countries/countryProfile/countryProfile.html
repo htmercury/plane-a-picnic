@@ -5,5 +5,11 @@
       <i class="right angle icon divider"></i>
       <div class="active section">${country.name}</div>
     </div>
+    <h2 class="title">Regions</h2>
+    <div class="virtual-repeater-wrapper">
+      <div class="virtual-repeated-item" repeat.for="region of country.regions">
+        <a href="/regions/${region.regionId}">${region.name}</a>
+      </div>
+    </div>
   </div>
 </template>

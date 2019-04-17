@@ -8,7 +8,6 @@ export class Countries {
   taskQueue: TaskQueue;
   index: number;
   loading: boolean;
-  public displayCountries: Array<Country>;
   public countries: Array<Country>;
   private _countryService: CountryService;
 
@@ -27,7 +26,6 @@ export class Countries {
       this._countryService.getAllCountries()
         .then(countries => {
           this.countries = countries as Array<Country>;
-          this.displayCountries = this.countries.slice(0, 25);
           this.loading = false;
         });
     });

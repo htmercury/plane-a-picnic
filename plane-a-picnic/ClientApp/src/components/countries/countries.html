@@ -5,7 +5,7 @@
     </div>
     <div class="virtual-repeater-wrapper">
       <div if="condition.bind: loading" class="ui active indeterminate loader"></div>
-      <div class="virtual-repeated-item" repeat.for="country of countries" infinite-scroll-next="getMore">
+      <div class="virtual-repeated-item" repeat.for="country of countries">
         <a href="/countries/${country.countryId}">${country.name}</a>
       </div>
     </div>
