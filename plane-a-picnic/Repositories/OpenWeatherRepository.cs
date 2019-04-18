@@ -35,7 +35,7 @@ namespace plane_a_picnic.Repositories
                     "data/2.5/forecast?lat={0}&lon={1}&appid={2}",
                     target.LatitudeDeg,
                     target.LongitudeDeg,
-                    _config.Value.Key
+                    _config.Value.OpenWeatherKey
                 )
             );
             

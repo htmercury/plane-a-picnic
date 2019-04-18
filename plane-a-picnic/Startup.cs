@@ -35,7 +35,7 @@ namespace plane_a_picnic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<OpenWeatherOptions>(Configuration.GetSection("OpenWeather"));
+            services.Configure<OpenWeatherOptions>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

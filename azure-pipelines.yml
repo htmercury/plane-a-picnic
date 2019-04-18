@@ -41,30 +41,32 @@ steps:
     au build -env prod
   displayName: 'au build'
 
-- task: CopyFiles@2
-  inputs:
-    Contents: 'plane-a-picnic/ClientApp/dist/**'
-    TargetFolder: 'build'
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: 'build'
-    includeRootFolder: false
-    archiveFile: '$(Build.ArtifactStagingDirectory)/spa.zip'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/spa.zip'
-    ArtifactName: 'spabuild'
-
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish $(buildConfiguration)'
   inputs:
     command: publish
     projects: 'plane-a-picnic/*.csproj'
-    publishWebProjects: False
+    publishWebProjects: false
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True
+    zipAfterPublish: false
+
+- task: CopyFiles@2
+  inputs:
+    Contents: 'plane-a-picnic/ClientApp/dist/**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/plane-a-picnic/ClientApp/dist/'
+    flattenFolders: true
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/plane-a-picnic'
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)/build.zip'
+
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: $(Build.ArtifactStagingDirectory)
+    Contents: 'plane-a-picnic'
+  displayName: 'clean up'
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
