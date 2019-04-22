@@ -9,7 +9,14 @@
       <div class="header">
         Info
       </div>
-      <ul class="list">
+      <div if="condition.bind: loading" class="head-loader loading ui placeholder">
+        <div class="medium line"></div>
+        <div class="long line"></div>
+        <div class="long line"></div>
+        <div class="short line"></div>
+        <div class="short line"></div>
+      </div>
+      <ul if="condition.bind: !loading" class="list">
         <li><p>Continent: ${airport.continent}</p></li>
         <li><p>Country: <a href='/countries/${countryId}'>${countryName}</a></p></li>
         <li><p>Region: <a href='/regions/${regionId}'>${regionName}</a></p></li>

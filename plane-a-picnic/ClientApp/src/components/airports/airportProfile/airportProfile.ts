@@ -13,6 +13,7 @@ export class AirportProfile {
   regionName: string;
   countryId: number;
   countryName: string;
+  loading: boolean;
   public airport: Airport;
   private _airportService: AirportService;
   private _regionService: RegionService;
@@ -23,6 +24,25 @@ export class AirportProfile {
     this._airportService = airportService;
     this._regionService = regionService;
     this._countryService = countryService;
+    this.airport = this.initializeDefault();
+    this.loading = true;
+  }
+
+  setLoading() {
+    let self = this;
+    setTimeout(function(){
+        self.loading = false;
+    }, 2000);
+  }
+
+  initializeDefault() {
+    let airport = new Airport();
+    airport.continent = 'N/A';
+    airport.wikipediaLink = 'N/A';
+    airport.keywords = 'N/A';
+    this.countryId = -1;
+    this.regionId = -1;
+    return airport;
   }
 
   activate(params) {
@@ -49,6 +69,8 @@ export class AirportProfile {
               this.countryId = country.countryId;
               this.countryName = country.name;
             });
+          
+          this.setLoading();
         });
     });
   }

@@ -9,17 +9,29 @@
       <div class="header">
         Info
       </div>
-      <ul class="list">
+      <div if="condition.bind: loading" class="head-loader loading ui placeholder">
+        <div class="long line"></div>
+        <div class="short line"></div>
+        <div class="short line"></div>
+      </div>
+      <ul if="condition.bind: !loading" class="list">
         <li><p>Continent: ${country.continent}</p></li>
         <li><p>Wikipedia: <a href='${country.wikipediaLink}'>${country.wikipediaLink}</a><span if.bind="!country.wikipediaLink">N/A</span></p></li>
         <li><p>Keywords: ${country.keywords}<span if.bind="!country.keywords">N/A</span></p></li>
       </ul>
     </div>
     <h3 class="title-header">Regions</h3>
-    <div if.bind="emptyRegion" class="ui container">
+    <div if.bind="emptyRegion && !loading" class="ui container">
       <p>no regions are here.</p>
     </div>
-    <div class="virtual-repeater-wrapper">
+    <div if="condition.bind: loading" class="ui placeholder">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <div if="condition.bind: !loading" class="virtual-repeater-wrapper">
       <div class="virtual-repeated-item" repeat.for="region of country.regions">
         <a href="/regions/${region.regionId}">${region.name}</a>
       </div>

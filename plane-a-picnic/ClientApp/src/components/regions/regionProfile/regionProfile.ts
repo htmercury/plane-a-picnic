@@ -11,6 +11,7 @@ export class RegionProfile {
   countryId: number;
   countryName: string;
   emptyAirport: Boolean;
+  loading: Boolean;
   public region: Region;
   private _regionService: RegionService;
   private _countryService: CountryService;
@@ -20,6 +21,23 @@ export class RegionProfile {
     this._regionService = regionService;
     this._countryService = countryService;
     this.emptyAirport = false;
+    this.region = this.initializeDefault();
+    this.loading = true;
+  }
+
+  setLoading() {
+    let self = this;
+    setTimeout(function(){
+        self.loading = false;
+    }, 2000);
+  }
+
+  initializeDefault() {
+    let region = new Region();
+    region.continent = 'N/A';
+    region.wikipediaLink = 'N/A';
+    region.keywords = 'N/A';
+    return region;
   }
 
   activate(params) {
@@ -45,5 +63,6 @@ export class RegionProfile {
             });
         });
     });
+    this.setLoading();
   }
 }

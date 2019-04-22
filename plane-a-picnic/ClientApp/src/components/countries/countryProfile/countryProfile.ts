@@ -8,6 +8,7 @@ export class CountryProfile {
   taskQueue: TaskQueue;
   id: number;
   emptyRegion: Boolean;
+  loading: boolean;
   public country: Country;
   private _countryService: CountryService;
 
@@ -15,6 +16,23 @@ export class CountryProfile {
     this.taskQueue = TaskQueue;
     this._countryService = countryService;
     this.emptyRegion = false;
+    this.country = this.initializeDefault();
+    this.loading = true;
+  }
+
+  setLoading() {
+    let self = this;
+    setTimeout(function(){
+        self.loading = false;
+    }, 1500);
+  }
+
+  initializeDefault() {
+    let country = new Country();
+    country.continent = 'N/A';
+    country.wikipediaLink = 'N/A';
+    country.keywords = 'N/A';
+    return country;
   }
 
   activate(params) {
@@ -34,5 +52,7 @@ export class CountryProfile {
           }
         });
     });
+
+    this.setLoading();
   }
 }

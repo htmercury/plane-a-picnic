@@ -9,7 +9,13 @@
       <div class="header">
         Info
       </div>
-      <ul class="list">
+      <div if="condition.bind: loading" class="head-loader loading ui placeholder">
+        <div class="long line"></div>
+        <div class="medium line"></div>
+        <div class="short line"></div>
+        <div class="short line"></div>
+      </div>
+      <ul if="condition.bind: !loading" class="list">
         <li><p>Continent: ${region.continent}</p></li>
         <li><p>Country: <a href='/countries/${countryId}'>${countryName}</a></p></li>
         <li><p>Wikipedia: <a href='${region.wikipediaLink}'>${region.wikipediaLink}</a><span if.bind="!region.wikipediaLink">N/A</span></p></li>
@@ -17,10 +23,17 @@
       </ul>
     </div>
     <h3 class="title-header">Airports</h3>
-    <div if.bind="emptyAirport" class="ui container">
+    <div if.bind="emptyAirport && !loading" class="ui container">
       <p>no airports are here.</p>
     </div>
-    <div class="virtual-repeater-wrapper">
+    <div if="condition.bind: loading" class="ui placeholder">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <div if="condition.bind: !loading" class="virtual-repeater-wrapper">
       <div class="virtual-repeated-item" repeat.for="airport of region.airports">
         <a href="/airports/${airport.airportId}">${airport.name}</a>
       </div>

@@ -35,3 +35,10 @@
 .message {
   word-break: break-all;
 }
+
+.head-loader > .line::after {
+  background-color: #f8f8f9 !important;
+}
+.head-loader > .line {
+  background-color: #f8f8f9 !important;
+}
