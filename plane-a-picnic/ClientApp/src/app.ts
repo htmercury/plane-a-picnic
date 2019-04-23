@@ -22,7 +22,8 @@ export class App {
       { route: '/regions', name: 'regions', nav: true, moduleId: PLATFORM.moduleName('./components/regions/regions'), title: 'regions' },
       { route: '/regions/:id', name: 'regionProfile', moduleId: PLATFORM.moduleName('./components/regions/regionProfile/regionProfile'), title: 'regionProfile' },
       { route: '/airports', name: 'airports', nav: true, moduleId: PLATFORM.moduleName('./components/airports/airports'), title: 'airports' },
-      { route: '/airports/:id', name: 'airportProfile', moduleId: PLATFORM.moduleName('./components/airports/airportProfile/airportProfile'), title: 'airportProfile' }
+      { route: '/airports/:id', name: 'airportProfile', moduleId: PLATFORM.moduleName('./components/airports/airportProfile/airportProfile'), title: 'airportProfile' },
+      { route: '/about', name: 'about', moduleId: PLATFORM.moduleName('./components/about/about'), title: 'about' }
     ]);
     
     config.mapUnknownRoutes('not-found');

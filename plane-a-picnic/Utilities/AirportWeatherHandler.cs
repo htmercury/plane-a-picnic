@@ -44,6 +44,31 @@ namespace plane_a_picnic.Utilities
             return Math.Min(distance1, distance2);
         }
 
+        public RunwayStatsResourceModel DebugLandingRunway(double windAngle)
+        {
+            RunwayStatsResourceModel result = new RunwayStatsResourceModel();
+            double runwayCount = this.Runways.Count();
+            double opposingAngle = this.CalcOppositeAngle(windAngle);
+            result.OpposingAngle = Math.Round(opposingAngle, 3);
+            if (runwayCount == 0)
+            {
+                result.Runways = new List<RunwayResourceModel>();
+                result.AngleProximities = new List<double>();
+                return result;
+            }
+            // Map the proximity function to each runway to the opposing angle
+            List<double> runwayProximities = this.Runways.Select(r => {
+                    double? angle = r.LeHeadingDegT ?? this.CalcOppositeAngle((double)r.HeHeadingDegT);
+                    return Math.Round(this.CalcAngleProximity((double)angle, opposingAngle), 3);
+                })
+                .ToList();
+
+            result.Runways = this.Runways;
+            result.AngleProximities = runwayProximities;
+
+            return result;
+        }
+
         public RunwayResourceModel CalcLandingRunway(double windAngle)
         {
             double runwayCount = this.Runways.Count();

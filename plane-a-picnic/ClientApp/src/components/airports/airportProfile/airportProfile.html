@@ -72,12 +72,12 @@
                   <div class="content">
                     <div class="transition hidden weatherText-${$index}"></div>
                   </div>
-                  <div class="title">
+                  <div class="title" click.trigger="setLoadBars()">
                     <i class="dropdown icon"></i>
                     How about the other airports?
                   </div>
                   <div class="content">
-                    <p class="transition hidden">fill in</p>
+                      <div class="transition hidden weatherMetric-${$index}"></div>
                   </div>
                   <div class="title">
                     <i class="dropdown icon"></i>
@@ -117,7 +117,9 @@
                 <div class="meta"><a href="http://maps.google.com/maps?q=${r.leLatitudeDeg},${r.leLongitudeDeg}">${r.leLatitudeDeg || 'N/A'}, ${r.leLongitudeDeg || 'N/A'}</a></div>
                 <div class="description">
                   This runway is angled ${(r.leHeadingDegT || 'N/A') + '&deg;'}, it is
-                  ${r.lengthFt} ft long and ${r.widthFt} ft wide.
+                  ${r.lengthFt || 'N/A'} ft long and ${r.widthFt || 'N/A'} ft wide. In addition, the 
+                  runway is elevated ${r.leElevationFt} ft, ${r.lighted ? 'lighted' : 'not lighted'}, and is 
+                  ${r.closed ? 'closed' : 'opened'}.
                 </div>
               </div>
             </div>

@@ -105,5 +105,36 @@ namespace plane_a_picnic.Controllers
             }
             return predictions;
         }
+
+        // GET api/airports/5/prediction/debug
+        [HttpGet("{id}/prediction/debug")]
+        public async Task<IEnumerable<RunwayStatsResourceModel>> DebugLandingRunways(int id)
+        {
+            // setup
+            if (_handler.AirportId != id)
+            {
+                _handler.AirportId = id;
+                var airport = await GetOneAsync(id);
+                _handler.Runways = airport.Runways
+                    .FindAll(r => r.LeHeadingDegT.HasValue || r.HeHeadingDegT.HasValue)
+                    .OrderBy(r => r.LeHeadingDegT)
+                    .ToList();
+            }
+
+            if (_handler.Runways.Count == 0)
+            {
+                var empty = _handler.DebugLandingRunway(-1);
+                return new List<RunwayStatsResourceModel>{empty};
+            }
+
+            var weather = await GetWeather(id);
+            var stats = new List<RunwayStatsResourceModel>();
+            for (int i = 0; i < weather.List.Length; i++)
+            {
+                var day = _handler.DebugLandingRunway(weather.List[i].Wind.Deg);
+                stats.Add(day);
+            }
+            return stats;
+        }
     }
 }

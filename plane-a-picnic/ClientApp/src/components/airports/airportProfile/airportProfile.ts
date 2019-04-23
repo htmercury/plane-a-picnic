@@ -16,6 +16,7 @@ export class AirportProfile {
   countryName: string;
   loading: boolean;
   predictions: Array<Runway>;
+  results: Array<any>;
   weather: any;
   emptyRunways: boolean;
   infoText: string;
@@ -50,7 +51,8 @@ export class AirportProfile {
         .then(weather => {
           self.weather = weather;
           console.log(weather);
-          var forecasts = self.weather.list;
+          console.log(self.results);
+          let forecasts = self.weather.list;
           for (var i = 0; i < forecasts.length; i++) {
             let date = new Date(1000*forecasts[i].dt);
             let entry =`
@@ -84,8 +86,29 @@ export class AirportProfile {
                 </div>
               </div>
             `
-            let item = `<ul><li>${forecasts[i].dt}</li><li>${forecasts[i].wind.deg}</li></ul>`;
             $('.weatherText-' + i).html(entry);
+
+            let metrics = `
+            <div style="margin: 0.25em 0; margin-left: 20px" class="ui mini horizontal teal statistic">
+              <div class="value">
+                ${self.results[i].opposingAngle}&deg;
+              </div>
+              <div class="label">
+                Wind Angle
+              </div>
+            </div>
+            `;
+            for (var j = 0; j < self.results[i].angleProximities.length; j++) {
+              let angle = self.results[i].angleProximities[j];
+              let runway = self.results[i].runways[j];
+              metrics += `
+              <div class="ui indicating progress" data-percent="${(360-angle)/360*100}">
+                <div class="bar"><div class="progress"></div></div>
+                <div class="label">Runway ${runway.runwayId} (${runway.leHeadingDegT || (runway.heHeadingDegT+180)%360}&deg;) - ${angle}&deg; away</div>
+              </div>
+              `
+            }
+            $('.weatherMetric-'+ i).html(metrics);
           }
           ($('.runways') as any).slick({
             dots: true,
@@ -116,6 +139,12 @@ export class AirportProfile {
           self.loading = false;
         });
     }, 2000);
+  }
+
+  setLoadBars() {
+    setTimeout(function() {
+      ($('.ui.progress') as any).progress();
+    }, 500);
   }
 
   initializeDefault() {
@@ -163,7 +192,12 @@ export class AirportProfile {
             this.emptyRunways = true;
           }
 
-          this.setLoading();
+          this._airportService.debugPredictions(this.id)
+            .then(results => {
+              this.results = results;
+              this.setLoading();
+            });
+
         });
     });
   }

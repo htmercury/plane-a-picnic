@@ -18,4 +18,8 @@ export default class AirportService extends BaseService {
     return this.http.fetch(`api/airports/${id}/prediction`)
       .then(response => response.json());
   }
+  debugPredictions(id) {
+    return this.http.fetch(`api/airports/${id}/prediction/debug`)
+      .then(response => response.json());
+  }
 }
