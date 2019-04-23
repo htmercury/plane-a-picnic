@@ -30,10 +30,10 @@ export class RegionProfile {
     let self = this;
     setTimeout(function(){
         self.infoText = `
-          <li><p>Continent: ${self.region.continent}</p></li>
-          <li><p>Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
-          <li><p>Wikipedia: <a href='${self.region.wikipediaLink || 'javascript:void(0)'}'>${self.region.wikipediaLink || 'N/A'}</a></p></li>
-          <li><p>Keywords: ${self.region.keywords || 'N/A'}</p></li>
+          <li><p style="color: black; font-size:1rem;">Continent: ${self.region.continent}</p></li>
+          <li><p style="color: black; font-size:1rem;">Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
+          <li><p style="color: black; font-size:1rem;">Wikipedia: <a href='${self.region.wikipediaLink || 'javascript:void(0)'}'>${self.region.wikipediaLink || 'N/A'}</a></p></li>
+          <li><p style="color: black; font-size:1rem;">Keywords: ${self.region.keywords || 'N/A'}</p></li>
         `
         self.loading = false;
     }, 2000);

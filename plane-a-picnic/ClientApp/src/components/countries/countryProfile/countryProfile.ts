@@ -25,9 +25,9 @@ export class CountryProfile {
     let self = this;
     setTimeout(function(){
         self.infoText = `
-          <li><p>Continent: ${self.country.continent}</p></li>
-          <li><p>Wikipedia: <a href='${self.country.wikipediaLink || 'javascript:void(0)'}'>${self.country.wikipediaLink}</a></p></li>
-          <li><p>Keywords: ${self.country.keywords || 'N/A'}</p></li>
+          <li><p style="color: black; font-size:1rem;">Continent: ${self.country.continent}</p></li>
+          <li><p style="color: black; font-size:1rem;">Wikipedia: <a href='${self.country.wikipediaLink || 'javascript:void(0)'}'>${self.country.wikipediaLink}</a></p></li>
+          <li><p style="color: black; font-size:1rem;">Keywords: ${self.country.keywords || 'N/A'}</p></li>
         `
         self.loading = false;
     }, 1500);

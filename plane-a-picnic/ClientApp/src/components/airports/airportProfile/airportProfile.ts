@@ -38,12 +38,12 @@ export class AirportProfile {
     let self = this;
     setTimeout(function(){
         self.infoText = `
-          <li><p>Continent: ${self.airport.continent}</p></li>
-          <li><p>Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
-          <li><p>Region: <a href='/regions/${self.regionId}'>${self.regionName}</a></p></li>
-          <li><p>Wikipedia: <a href='${self.airport.wikipediaLink || 'javascript:void(0)'}'>${self.airport.wikipediaLink || 'N/A'}</a></p></li>
-          <li><p>Number of runways: ${self.airport.runways.length}</p></li>
-          <li><p>Keywords: ${self.airport.keywords || 'N/A'}</p></li>
+          <li><p style="color: black; font-size:1rem;">Continent: ${self.airport.continent}</p></li>
+          <li><p style="color: black; font-size:1rem;">Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
+          <li><p style="color: black; font-size:1rem;">Region: <a href='/regions/${self.regionId}'>${self.regionName}</a></p></li>
+          <li><p style="color: black; font-size:1rem;">Wikipedia: <a href='${self.airport.wikipediaLink || 'javascript:void(0)'}'>${self.airport.wikipediaLink || 'N/A'}</a></p></li>
+          <li><p style="color: black; font-size:1rem;">Number of runways: ${self.airport.runways.length}</p></li>
+          <li><p style="color: black; font-size:1rem;">Keywords: ${self.airport.keywords || 'N/A'}</p></li>
         `;
         ($('.runways') as any).slick({
           dots: true,
