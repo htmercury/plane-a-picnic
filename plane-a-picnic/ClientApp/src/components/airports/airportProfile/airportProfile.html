@@ -1,5 +1,6 @@
 <template>
   <require from="./airportProfile.css"></require>
+  <require from="../../../converters/degree-formatter"></require>
   <div class="ui container">
     <div class="ui breadcrumb">
       <a href="/airports" class="section">Airports</a>
@@ -21,17 +22,64 @@
         <div innerhtml.bind="infoText"></div>
       </ul>
     </div>
+    <h3>Predictions</h3>
+    <div if="condition.bind: loading" class="ui card">
+        <div class="content">
+            <div class="header ui placeholder"><div class="long line"></div></div>
+            <div class="description ui placeholder">
+              <div class="medium line"></div>
+              <div class="short line"></div>
+            </div>
+            <div class="ui placeholder">
+              <div class="paragraph">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+              <div class="paragraph">
+                <div class="line"></div>
+              </div>
+              <div class="paragraph">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+        </div>
+    </div>
     <div if.bind="emptyRunways && !loading" class="ui container">
       <p>no runways are here.</p>
     </div>
-    <h3>Predictions</h3>
-    <div class="runways">
+    <div class="runways ${!loading ? '' : 'hide'}">
       <div repeat.for="p of predictions" class="runway-item">
           <div class="ui card">
               <div class="content">
                 <div class="header">Day ${$index} - Runway ${p.runwayId}</div>
                 <div class="meta"><a>${p.leLatitudeDeg}, ${p.leLongitudeDeg}</a></div>
-                <div class="description">This runway is angled ${p.leHeadingDegT}&deg;, it is ${p.lengthFt} ft long and ${p.widthFt} ft wide.</div>
+                <div class="description">
+                  This runway is angled ${p.leHeadingDegT || (p.heHeadingDegT + 180) % 360 | degreeFormat}&deg;, it is ${p.lengthFt} ft long and ${p.widthFt} ft wide.
+                </div>
+                <div class="ui accordion">
+                    <div class="title">
+                      <i class="dropdown icon"></i>
+                      What was the forecast?
+                    </div>
+                    <div class="content">
+                      <p class="transition hidden">fill in</p>
+                    </div>
+                    <div class="title">
+                      <i class="dropdown icon"></i>
+                      How about the other airports?
+                    </div>
+                    <div class="content">
+                      <p class="transition hidden">fill in</p>
+                    </div>
+                    <div class="title">
+                      <i class="dropdown icon"></i>
+                      How are the metrics done?
+                    </div>
+                    <div class="content">
+                      <p class="transition hidden">Refer to the <b>about</b> section.</p>
+                    </div>
+                </div>
               </div>
           </div>
       </div>

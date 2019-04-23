@@ -86,7 +86,7 @@ namespace plane_a_picnic.Controllers
                 _handler.AirportId = id;
                 var airport = await GetOneAsync(id);
                 _handler.Runways = airport.Runways
-                    .FindAll(r => r.LeHeadingDegT.HasValue)
+                    .FindAll(r => r.LeHeadingDegT.HasValue || r.HeHeadingDegT.HasValue)
                     .OrderBy(r => r.LeHeadingDegT)
                     .ToList();
             }

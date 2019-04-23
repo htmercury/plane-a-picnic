@@ -18,7 +18,10 @@ namespace plane_a_picnic.Utilities
         }
         public AirportWeatherHandler(List<RunwayResourceModel> runways)
         {
-            this.Runways = runways.FindAll(r => r.LeHeadingDegT.HasValue).OrderBy(r => r.LeHeadingDegT).ToList();
+            this.Runways = runways
+                .FindAll(r => r.LeHeadingDegT.HasValue || r.HeHeadingDegT.HasValue)
+                .OrderBy(r => r.LeHeadingDegT)
+                .ToList();
         }
 
         public double CalcOppositeAngle(double angle)
@@ -50,8 +53,11 @@ namespace plane_a_picnic.Utilities
                 return null;
             }
             // Map the proximity function to each runway to the opposing angle
-            List<double> runwayProximities = this.Runways.Select(r => 
-                this.CalcAngleProximity((double)r.LeHeadingDegT, opposingAngle)).ToList();
+            List<double> runwayProximities = this.Runways.Select(r => {
+                    double? angle = r.LeHeadingDegT ?? this.CalcOppositeAngle((double)r.HeHeadingDegT);
+                    return this.CalcAngleProximity((double)angle, opposingAngle);
+                })
+                .ToList();
 
             // Do a linear search on each runway and choose the one with min proximity to opposing angle
             int min = 0;

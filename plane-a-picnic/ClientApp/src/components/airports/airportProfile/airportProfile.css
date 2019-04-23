@@ -10,7 +10,14 @@
   margin: 0 50px;
 }
 
-
 .slick-slide {
   padding: 1px;
+}
+
+.accordion {
+  margin-top: 10px;
+}
+
+.hide {
+  display: none;
 }

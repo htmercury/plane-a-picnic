@@ -42,6 +42,7 @@ export class AirportProfile {
           <li><p>Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
           <li><p>Region: <a href='/regions/${self.regionId}'>${self.regionName}</a></p></li>
           <li><p>Wikipedia: <a href='${self.airport.wikipediaLink || 'javascript:void(0)'}'>${self.airport.wikipediaLink || 'N/A'}</a></p></li>
+          <li><p>Number of runways: ${self.airport.runways.length}</p></li>
           <li><p>Keywords: ${self.airport.keywords || 'N/A'}</p></li>
         `;
         ($('.runways') as any).slick({
@@ -69,6 +70,7 @@ export class AirportProfile {
             }
           ]
         });
+        ($('.ui.accordion') as any).accordion();
         self.loading = false;
     }, 2000);
   }
@@ -96,10 +98,6 @@ export class AirportProfile {
         .then(airport => {
           this.airport = airport as Airport;
 
-          if (this.airport.runways.length == 0) {
-            this.emptyRunways = true;
-          }
-
           this._regionService.getRegionByCode(this.airport.isoRegion)
             .then(region => {
               this.regionId = region.regionId;
@@ -117,6 +115,11 @@ export class AirportProfile {
           this._airportService.getPredictions(this.id)
           .then(res => {
             this.predictions = res;
+
+            if (this.predictions.length == 0) {
+              this.emptyRunways = true;
+            }
+
             this.setLoading();
         });
       });

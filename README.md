@@ -5,7 +5,7 @@
 
 Plane-a-picnic utilizes the open sourced data available on OurAirports to reference runways located worldwide given an airport. A user is able to select an airport and given an airport, the app retrieves a five day forecast for where the airport is located. Using the forecast information, primarily the opposing wind angle, the app predicts and returns the most expected runway to be used each day. With the predicted runway, the user is able to plan on those days better picnic spots.
 
-<img src="https://raw.githubusercontent.com/htmercury/plane-a-picnic/master/header.png" width="400">
+<img src="https://raw.githubusercontent.com/htmercury/plane-a-picnic/master/header3.png" width="400">
 
 ## Getting Started
 
