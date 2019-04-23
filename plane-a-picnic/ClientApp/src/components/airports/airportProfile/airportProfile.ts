@@ -16,6 +16,7 @@ export class AirportProfile {
   countryName: string;
   loading: boolean;
   predictions: Array<Runway>;
+  emptyRunways: boolean;
   infoText: string;
   public airport: Airport;
   private _airportService: AirportService;
@@ -27,6 +28,7 @@ export class AirportProfile {
     this._airportService = airportService;
     this._regionService = regionService;
     this._countryService = countryService;
+    this.emptyRunways = false;
     this.airport = this.initializeDefault();
     this.predictions = [];
     this.loading = true;
@@ -41,7 +43,32 @@ export class AirportProfile {
           <li><p>Region: <a href='/regions/${self.regionId}'>${self.regionName}</a></p></li>
           <li><p>Wikipedia: <a href='${self.airport.wikipediaLink || 'javascript:void(0)'}'>${self.airport.wikipediaLink || 'N/A'}</a></p></li>
           <li><p>Keywords: ${self.airport.keywords || 'N/A'}</p></li>
-        `
+        `;
+        ($('.runways') as any).slick({
+          dots: true,
+          infinite: false,
+          speed: 300,
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          responsive: [
+            {
+              breakpoint: 1080,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 720,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+        });
         self.loading = false;
     }, 2000);
   }
@@ -69,6 +96,10 @@ export class AirportProfile {
         .then(airport => {
           this.airport = airport as Airport;
 
+          if (this.airport.runways.length == 0) {
+            this.emptyRunways = true;
+          }
+
           this._regionService.getRegionByCode(this.airport.isoRegion)
             .then(region => {
               this.regionId = region.regionId;
@@ -81,14 +112,13 @@ export class AirportProfile {
               this.countryName = country.name;
             });
           
-          this.setLoading();
+          });
+          
+          this._airportService.getPredictions(this.id)
+          .then(res => {
+            this.predictions = res;
+            this.setLoading();
         });
-
-      this._airportService.getPredictions(this.id)
-        .then(res => {
-          console.log(res);
-          this.predictions = res;
-        });
-    });
+      });
   }
 }

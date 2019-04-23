@@ -1,0 +1,16 @@
+.ui.card {
+  margin: auto;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #c89f9c;
+}
+
+.runways {
+  margin: 0 50px;
+}
+
+
+.slick-slide {
+  padding: 1px;
+}

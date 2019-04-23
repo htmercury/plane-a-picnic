@@ -1,3 +1,5 @@
+import Runway from './Runway';
+
 export default class Airport {
   airportId : number;
   type: string;
@@ -11,6 +13,7 @@ export default class Airport {
   scheduledService: boolean;
   gpsCode: string;
   iataCode: string;
+  runways: Array<Runway>;
   wikipediaLink: string;
   keywords: string;
 }
