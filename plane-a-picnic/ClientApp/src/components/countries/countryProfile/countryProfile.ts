@@ -9,6 +9,7 @@ export class CountryProfile {
   id: number;
   emptyRegion: Boolean;
   loading: boolean;
+  infoText: string;
   public country: Country;
   private _countryService: CountryService;
 
@@ -23,6 +24,11 @@ export class CountryProfile {
   setLoading() {
     let self = this;
     setTimeout(function(){
+        self.infoText = `
+          <li><p>Continent: ${self.country.continent}</p></li>
+          <li><p>Wikipedia: <a href='${self.country.wikipediaLink || 'javascript:void(0)'}'>${self.country.wikipediaLink}</a></p></li>
+          <li><p>Keywords: ${self.country.keywords || 'N/A'}</p></li>
+        `
         self.loading = false;
     }, 1500);
   }

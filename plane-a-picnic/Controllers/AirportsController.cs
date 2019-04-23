@@ -85,7 +85,15 @@ namespace plane_a_picnic.Controllers
             {
                 _handler.AirportId = id;
                 var airport = await GetOneAsync(id);
-                _handler.Runways = airport.Runways;
+                _handler.Runways = airport.Runways
+                    .FindAll(r => r.LeHeadingDegT.HasValue)
+                    .OrderBy(r => r.LeHeadingDegT)
+                    .ToList();
+            }
+
+            if (_handler.Runways.Count == 0)
+            {
+                return new List<RunwayResourceModel>();
             }
 
             var weather = await GetWeather(id);

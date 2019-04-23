@@ -15,9 +15,7 @@
         <div class="short line"></div>
       </div>
       <ul if="condition.bind: !loading" class="list">
-        <li><p>Continent: ${country.continent}</p></li>
-        <li><p>Wikipedia: <a href='${country.wikipediaLink}'>${country.wikipediaLink}</a><span if.bind="!country.wikipediaLink">N/A</span></p></li>
-        <li><p>Keywords: ${country.keywords}<span if.bind="!country.keywords">N/A</span></p></li>
+        <div innerhtml.bind="infoText"></div>
       </ul>
     </div>
     <h3 class="title-header">Regions</h3>

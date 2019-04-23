@@ -1,5 +1,6 @@
 import { useView, inject, TaskQueue, autoinject, Task } from 'aurelia-framework';
 import Airport from '../../../models/Airport';
+import Runway from '../../../models/Runway';
 import AirportService from '../../../services/AirportService';
 import CountryService from '../../../services/CountryService';
 import RegionService from '../../../services/RegionService';
@@ -14,6 +15,8 @@ export class AirportProfile {
   countryId: number;
   countryName: string;
   loading: boolean;
+  predictions: Array<Runway>;
+  infoText: string;
   public airport: Airport;
   private _airportService: AirportService;
   private _regionService: RegionService;
@@ -25,12 +28,20 @@ export class AirportProfile {
     this._regionService = regionService;
     this._countryService = countryService;
     this.airport = this.initializeDefault();
+    this.predictions = [];
     this.loading = true;
   }
 
   setLoading() {
     let self = this;
     setTimeout(function(){
+        self.infoText = `
+          <li><p>Continent: ${self.airport.continent}</p></li>
+          <li><p>Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
+          <li><p>Region: <a href='/regions/${self.regionId}'>${self.regionName}</a></p></li>
+          <li><p>Wikipedia: <a href='${self.airport.wikipediaLink || 'javascript:void(0)'}'>${self.airport.wikipediaLink || 'N/A'}</a></p></li>
+          <li><p>Keywords: ${self.airport.keywords || 'N/A'}</p></li>
+        `
         self.loading = false;
     }, 2000);
   }
@@ -71,6 +82,12 @@ export class AirportProfile {
             });
           
           this.setLoading();
+        });
+
+      this._airportService.getPredictions(this.id)
+        .then(res => {
+          console.log(res);
+          this.predictions = res;
         });
     });
   }
