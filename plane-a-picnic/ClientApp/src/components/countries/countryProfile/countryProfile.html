@@ -15,12 +15,12 @@
         <div class="short line"></div>
       </div>
       <ul if="condition.bind: !loading" class="list">
-        <div innerhtml.bind="infoText"></div>
+        <div innerhtml.bind="infoText | sanitizeHTML"></div>
       </ul>
     </div>
     <h3 class="title-header">Regions</h3>
     <div if.bind="emptyRegion && !loading" class="ui container">
-      <p>no regions are here.</p>
+      <p>No regions are here.</p>
     </div>
     <div if="condition.bind: loading" class="ui placeholder">
       <div class="line"></div>

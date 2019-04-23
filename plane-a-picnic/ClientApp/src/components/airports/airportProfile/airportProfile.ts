@@ -16,6 +16,7 @@ export class AirportProfile {
   countryName: string;
   loading: boolean;
   predictions: Array<Runway>;
+  weather: any;
   emptyRunways: boolean;
   infoText: string;
   public airport: Airport;
@@ -36,8 +37,8 @@ export class AirportProfile {
 
   setLoading() {
     let self = this;
-    setTimeout(function(){
-        self.infoText = `
+    setTimeout(function () {
+      self.infoText = `
           <li><p style="color: black; font-size:1rem;">Continent: ${self.airport.continent}</p></li>
           <li><p style="color: black; font-size:1rem;">Country: <a href='/countries/${self.countryId}'>${self.countryName}</a></p></li>
           <li><p style="color: black; font-size:1rem;">Region: <a href='/regions/${self.regionId}'>${self.regionName}</a></p></li>
@@ -45,33 +46,75 @@ export class AirportProfile {
           <li><p style="color: black; font-size:1rem;">Number of runways: ${self.airport.runways.length}</p></li>
           <li><p style="color: black; font-size:1rem;">Keywords: ${self.airport.keywords || 'N/A'}</p></li>
         `;
-        ($('.runways') as any).slick({
-          dots: true,
-          infinite: false,
-          speed: 300,
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          responsive: [
-            {
-              breakpoint: 1080,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                infinite: true,
-                dots: true
+      self._airportService.getForecast(self.airport.airportId)
+        .then(weather => {
+          self.weather = weather;
+          console.log(weather);
+          var forecasts = self.weather.list;
+          for (var i = 0; i < forecasts.length; i++) {
+            let date = new Date(1000*forecasts[i].dt);
+            let entry =`
+              <p style="margin-left: 20px">${date.toLocaleString()}</p>
+              <p style="margin-left: 20px">Description: ${forecasts[i].weather[0].description}</p>
+              </div>
+              <div style="margin-left: 20px" class="ui mini horizontal statistics">
+                <div style="margin: 0.25em 0" class="violet statistic">
+                  <div class="value">
+                    ${((forecasts[i].main.temp-273.15)*9/5+32).toFixed(3)}&deg; F
+                  </div>
+                  <div class="label">
+                    Temp
+                  </div>
+                </div>
+                <div style="margin: 0.25em 0" class="blue statistic">
+                  <div class="value">
+                    ${forecasts[i].wind.speed} m/s
+                  </div>
+                  <div class="label">
+                    Wind Speed
+                  </div>
+                </div>
+                <div style="margin: 0.25em 0" class="teal statistic">
+                  <div class="value">
+                    ${forecasts[i].wind.deg}&deg;
+                  </div>
+                  <div class="label">
+                    Wind Angle
+                  </div>
+                </div>
+              </div>
+            `
+            let item = `<ul><li>${forecasts[i].dt}</li><li>${forecasts[i].wind.deg}</li></ul>`;
+            $('.weatherText-' + i).html(entry);
+          }
+          ($('.runways') as any).slick({
+            dots: true,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            responsive: [
+              {
+                breakpoint: 1080,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 720,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
               }
-            },
-            {
-              breakpoint: 720,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
-            }
-          ]
+            ]
+          });
+          ($('.ui.accordion') as any).accordion();
+          self.loading = false;
         });
-        ($('.ui.accordion') as any).accordion();
-        self.loading = false;
     }, 2000);
   }
 
@@ -103,25 +146,25 @@ export class AirportProfile {
               this.regionId = region.regionId;
               this.regionName = region.name;
             });
-          
+
           this._countryService.getCountryByCode(this.airport.isoCountry)
             .then(country => {
               this.countryId = country.countryId;
               this.countryName = country.name;
             });
-          
-          });
-          
-          this._airportService.getPredictions(this.id)
-          .then(res => {
-            this.predictions = res;
 
-            if (this.predictions.length == 0) {
-              this.emptyRunways = true;
-            }
-
-            this.setLoading();
         });
-      });
+
+      this._airportService.getPredictions(this.id)
+        .then(predictions => {
+          this.predictions = predictions;
+
+          if (this.predictions.length == 0) {
+            this.emptyRunways = true;
+          }
+
+          this.setLoading();
+        });
+    });
   }
 }
