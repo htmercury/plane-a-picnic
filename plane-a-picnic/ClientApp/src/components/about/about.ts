@@ -16,7 +16,9 @@ export class About {
       $('.menu > .item').removeClass('active');
       $('.menu > .about.item').addClass('active');
 
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+      setTimeout(function() {
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+      }, 1000);
     });
   }
 }
