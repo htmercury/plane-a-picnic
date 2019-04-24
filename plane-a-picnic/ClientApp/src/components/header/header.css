@@ -18,3 +18,7 @@
 #menu i {
   font-size: 16px;
 }
+
+.filler {
+  flex: 1;
+}

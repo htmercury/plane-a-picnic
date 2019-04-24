@@ -50,8 +50,6 @@ export class AirportProfile {
       self._airportService.getForecast(self.airport.airportId)
         .then(weather => {
           self.weather = weather;
-          console.log(weather);
-          console.log(self.results);
           let forecasts = self.weather.list;
           for (var i = 0; i < forecasts.length; i++) {
             let date = new Date(1000*forecasts[i].dt);

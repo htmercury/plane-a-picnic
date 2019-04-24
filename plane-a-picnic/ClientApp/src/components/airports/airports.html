@@ -1,10 +1,19 @@
 <template>
+  <require from="../../converters/count-formatter"></require>
   <div class="ui container airports">
     <div class="ui breadcrumb">
       <div class="active section">Airports</div>
     </div>
+    <div if="condition.bind: !loading" style="display: block" class="ui horizontal statistic">
+      <div class="value">
+        ${airports.length | countFormat}
+      </div>
+      <div class="label">
+        Entries
+      </div>
+    </div>
     <div class="virtual-repeater-wrapper">
-      <div if="condition.bind: loading" class="ui active indeterminate loader"></div>
+      <div if="condition.bind: loading" class="ui active text indeterminate loader">Might take a bit..</div>
       <div class="virtual-repeated-item" virtual-repeat.for="airport of displayAirports" infinite-scroll-next="getMore">
         <a href="/airports/${airport.airportId}">${airport.name}</a>
       </div>

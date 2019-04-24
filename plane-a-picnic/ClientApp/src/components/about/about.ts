@@ -1,5 +1,6 @@
 import { useView, inject, TaskQueue, autoinject, Task } from 'aurelia-framework';
-import { MathJax } from 'mathjax';
+
+declare var MathJax: any;
 
 @useView('./about.html')
 @autoinject

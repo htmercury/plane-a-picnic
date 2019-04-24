@@ -11,7 +11,20 @@
       those days better picnic spots.</p>
     <h3 class="title-header">Metrics</h3>
     <p>The explanation below provides some insight to the assessment of the landing runway for a particular day.</p>
-    <p id="explanation">When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-        $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
+    <p id="explanation">Suppose on a given day, there is a wind angle of $d$. First, the opposing wind angle 
+      $\alpha$ is calculated where: $$\alpha = (d + 180)\%360$$ Let $R$ denote the set of 
+      runways for a particular airport $A$. Note to calculate the proximity to two angles, 
+      (without loss of generality assume $a_1\geq a_2$): $$\min(a_1 - a_2, 360-a_1+a_2)$$
+      $\DeclareMathOperator*{\argmin}{arg\,min}$
+      Let function $f(a_1,a_2)$ denote the method above. Now apply this concept to each runway \(r \in R\) of airport $A$ where the best runway is simply: 
+      $$ \argmin_{r \in R} 
+      \begin{cases}
+        f(\text{angle}(r), \alpha),& \text{if } \text{angle}(r)\geq \alpha\\
+        f(\alpha ,\text{angle}(r)),              & \text{otherwise}
+      \end{cases}
+      $$
+      Hence, the runway $r$ with the closest angle to the opposing wind angle $\alpha$ is chosen and so 
+      the prediction is computed using heuristics above.
+    </p>
   </div>
 </template>

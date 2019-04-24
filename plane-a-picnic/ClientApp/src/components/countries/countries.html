@@ -1,10 +1,19 @@
 <template>
+  <require from="../../converters/count-formatter"></require>
   <div class="ui container countries">
     <div class="ui breadcrumb">
       <div class="active section">Countries</div>
     </div>
+    <div if="condition.bind: !loading" style="display: block" class="ui horizontal statistic">
+      <div class="value">
+        ${countries.length | countFormat}
+      </div>
+      <div class="label">
+        Entries
+      </div>
+    </div>
     <div class="virtual-repeater-wrapper">
-      <div if="condition.bind: loading" class="ui active indeterminate loader"></div>
+      <div if="condition.bind: loading" class="ui active text indeterminate loader">Loading</div>
       <div class="virtual-repeated-item" repeat.for="country of countries">
         <a href="/countries/${country.countryId}">${country.name}</a>
       </div>
