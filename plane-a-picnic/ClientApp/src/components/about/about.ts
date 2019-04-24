@@ -18,7 +18,7 @@ export class About {
 
       setTimeout(function() {
         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-      }, 1000);
+      }, 2000);
     });
   }
 }
