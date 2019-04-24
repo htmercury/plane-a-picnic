@@ -1,6 +1,17 @@
 <template>
+  <require from="./about.css"></require>
   <div class="ui center aligned basic segment">
-    <h2>About</h2>
-    
+    <h2 class="title-header">About</h2>
+    <p>Plane-a-picnic utilizes the open sourced data available on OurAirports to 
+      reference runways located worldwide given an airport.</p>
+    <p>A user is able to select an airport and given an airport, the app retrieves a five 
+      day forecast for where the airport is located. Using the forecast information, primarily 
+      the opposing wind angle, the app predicts and returns the most expected runway 
+      to be used each day. With the predicted runway, the user is able to plan on 
+      those days better picnic spots.</p>
+    <h3 class="title-header">Metrics</h3>
+    <p>The explanation below provides some insight to the assessment of the landing runway for a particular day.</p>
+    <p id="explanation">When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+        $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
   </div>
 </template>

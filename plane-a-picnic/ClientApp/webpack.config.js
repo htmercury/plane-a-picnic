@@ -149,7 +149,7 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
     new AureliaPlugin(),
     new ProvidePlugin({
       'Promise': 'bluebird',
-  }),
+    }),
     new ModuleDependenciesPlugin({
       'aurelia-testing': ['./compile-spy', './view-spy']
     }),

@@ -88,13 +88,17 @@ export class AirportProfile {
             `
             $('.weatherText-' + i).html(entry);
 
+            if (self.predictions.length == 0) {
+              continue;
+            }
+
             let metrics = `
             <div style="margin: 0.25em 0; margin-left: 20px" class="ui mini horizontal teal statistic">
               <div class="value">
                 ${self.results[i].opposingAngle}&deg;
               </div>
               <div class="label">
-                Wind Angle
+                Opposing Wind Angle
               </div>
             </div>
             `;
