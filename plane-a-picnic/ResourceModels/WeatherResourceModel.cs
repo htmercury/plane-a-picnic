@@ -76,7 +76,7 @@ namespace plane_a_picnic.ResourceModels
         public Sys Sys { get; set; }
 
         [JsonProperty("dt_txt")]
-        public DateTimeOffset DtTxt { get; set; }
+        public string DtTxt { get; set; }
     }
 
     public partial class Clouds

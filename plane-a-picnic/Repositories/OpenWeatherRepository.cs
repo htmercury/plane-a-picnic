@@ -44,16 +44,16 @@ namespace plane_a_picnic.Repositories
             var result = await response.Content
                 .ReadAsAsync<WeatherResourceModel>();
 
-            var len = result.List.Select(l => l.DtTxt.Date).Distinct().Count();
+            var len = result.List.Select(l => DateTime.Parse(l.DtTxt).Day).Distinct().Count();
             var list = new List[len];
             // filter forecast entries by distinct Date.
-            int idx = 1;
-            var last = result.List[0].DtTxt.Date;
-            list[0] = result.List[0];
-            for (int i = 1; i < result.List.Length; i++)
+            int idx = 0;
+            var lastDay = -1;
+            for (int i = 0; i < result.List.Length; i++)
             {
-                if (result.List[i].DtTxt.Date != last) {
-                    last = result.List[i].DtTxt.Date;
+                var currDay = DateTime.Parse(result.List[i].DtTxt).Day;
+                if (currDay > lastDay) {
+                    lastDay = currDay;
                     list[idx] = result.List[i];
                     idx++;
                 }

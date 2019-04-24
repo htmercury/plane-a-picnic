@@ -1,4 +1,5 @@
 import { useView, inject, TaskQueue, autoinject, Task } from 'aurelia-framework';
+import moment from 'moment';
 import Airport from '../../../models/Airport';
 import Runway from '../../../models/Runway';
 import AirportService from '../../../services/AirportService';
@@ -54,7 +55,8 @@ export class AirportProfile {
           for (var i = 0; i < forecasts.length; i++) {
             let date = new Date(1000*forecasts[i].dt);
             let entry =`
-              <p style="margin-left: 20px">${date.toLocaleString()}</p>
+              <p style="margin-left: 20px">${moment.utc(date.toUTCString()).format('ddd, MMM Do h:mm A z')}</p>
+              <p style="margin-left: 20px; font-size: 12px; color:#a5a5a5">${moment.utc(date.toLocaleString()).format('ddd, MMM Do h:mm A')} locally</p>
               <p style="margin-left: 20px">Description: ${forecasts[i].weather[0].description}</p>
               </div>
               <div style="margin-left: 20px" class="ui mini horizontal statistics">
@@ -99,6 +101,7 @@ export class AirportProfile {
                 Opposing Wind Angle
               </div>
             </div>
+            <p style="margin: 0.25em 0; margin-left: 20px; font-size: 12p; color: #a5a5a5;">Runway ID (runway angle) - opposing wind angle proximity</p>
             `;
             for (var j = 0; j < self.results[i].angleProximities.length; j++) {
               let angle = self.results[i].angleProximities[j];

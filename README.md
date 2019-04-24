@@ -59,9 +59,7 @@ Format the appsettings.json similar to:
   "User": "{DB_USER}",
   "Password": "{DB_PASS}",
   "Server": "{SERVER_URL}",
-  "OpenWeather": {
-    "Key": "{API_KEY}"
-  }
+  "OpenWeatherKey": "{API_KEY}"
 }
 ```
 Add initial migrations and update database. (Make sure the DB firewall accepts your IP)
