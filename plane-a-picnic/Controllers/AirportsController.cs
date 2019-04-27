@@ -98,9 +98,14 @@ namespace plane_a_picnic.Controllers
 
             var weather = await GetWeather(id);
             var predictions = new List<RunwayResourceModel>();
+            
+            // sometimes list can be null
+            weather.List = weather.List.Where(l => l != null).ToArray();
+            
             for (int i = 0; i < weather.List.Length; i++)
             {
-                var runway = _handler.CalcLandingRunway(weather.List[i].Wind.Deg);
+                double windDegree = weather.List[i].Wind.Deg;
+                var runway = _handler.CalcLandingRunway(windDegree);
                 predictions.Add(runway);
             }
             return predictions;

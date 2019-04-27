@@ -48,12 +48,10 @@ namespace plane_a_picnic.Repositories
             var list = new List[len];
             // filter forecast entries by distinct Date.
             int idx = 0;
-            var lastDay = -1;
             for (int i = 0; i < result.List.Length; i++)
             {
-                var currDay = DateTime.Parse(result.List[i].DtTxt).Day;
-                if (currDay > lastDay) {
-                    lastDay = currDay;
+                var currTime = DateTime.Parse(result.List[i].DtTxt).Hour;
+                if (currTime == 12) {
                     list[idx] = result.List[i];
                     idx++;
                 }
