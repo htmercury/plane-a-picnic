@@ -66,7 +66,7 @@ export class AirportProfile {
               <div style="margin-left: 20px" class="ui mini horizontal statistics">
                 <div style="margin: 0.25em 0" class="violet statistic">
                   <div class="value">
-                    ${(forecasts[i].main.temp-273.15).toFixed(3)}&deg; F
+                    ${(forecasts[i].main.temp-273.15).toFixed(3)}&deg; C
                   </div>
                   <div class="label">
                     Temp
