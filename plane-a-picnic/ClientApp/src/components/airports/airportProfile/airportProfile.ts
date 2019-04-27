@@ -53,6 +53,10 @@ export class AirportProfile {
           self.weather = weather;
           let forecasts = self.weather.list;
           for (var i = 0; i < forecasts.length; i++) {
+            if (self.airport.runways.length == 0) {
+              continue;
+            }
+
             let date = new Date(1000*forecasts[i].dt);
             let entry =`
               <p style="margin-left: 20px">${moment.utc(date.toUTCString()).format('ddd, MMM Do h:mm A z')}</p>
@@ -62,7 +66,7 @@ export class AirportProfile {
               <div style="margin-left: 20px" class="ui mini horizontal statistics">
                 <div style="margin: 0.25em 0" class="violet statistic">
                   <div class="value">
-                    ${((forecasts[i].main.temp-273.15)*9/5+32).toFixed(3)}&deg; F
+                    ${(forecasts[i].main.temp-273.15).toFixed(3)}&deg; F
                   </div>
                   <div class="label">
                     Temp
@@ -87,10 +91,6 @@ export class AirportProfile {
               </div>
             `
             $('.weatherText-' + i).html(entry);
-
-            if (self.predictions.length == 0) {
-              continue;
-            }
 
             let metrics = `
             <div style="margin: 0.25em 0; margin-left: 20px" class="ui mini horizontal teal statistic">
