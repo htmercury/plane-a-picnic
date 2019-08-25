@@ -37,11 +37,7 @@ namespace plane_a_picnic.Controllers
         [HttpGet()]
         public async Task<IEnumerable<AirportBasicResourceModel>> GetAllAsync([FromQuery(Name = "q")] string q)
         {
-            var airports = await _cache.GetOrCreateAsync("airports", entry =>
-            {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(3600);
-                return _airportService.ListAsync();
-            });
+            var airports = await _airportService.ListAsync();
             var resources = _mapper.Map<IEnumerable<AirportModel>, IEnumerable<AirportBasicResourceModel>>(airports);
 
             if (q == null)
