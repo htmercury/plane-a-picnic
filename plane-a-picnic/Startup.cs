@@ -18,7 +18,6 @@ using plane_a_picnic.Domain.Repositories;
 using plane_a_picnic.Domain.Services;
 using plane_a_picnic.Repositories;
 using plane_a_picnic.Services;
-using plane_a_picnic.Settings.Middleware;
 using plane_a_picnic.Settings.Options;
 
 namespace plane_a_picnic
@@ -40,7 +39,6 @@ namespace plane_a_picnic
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMemoryCache();
-            services.AddResponseCaching();
 
             services.AddScoped<IAirportRepository, AirportRepository>();
             services.AddScoped<IAirportService, AirportService>();
@@ -86,9 +84,6 @@ namespace plane_a_picnic
             {
                 app.UseSpaStaticFiles();
             }
-
-            app.UseResponseCaching();
-            app.UseCachingMiddleware();
 
             app.UseMvc(routes =>
             {
